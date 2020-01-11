@@ -25,7 +25,7 @@
      - 点开文件后 在File Anchors里面
        - 所有NOTE是我后加的备注
 4. 一点小建议
-   - 在Git terminal里面运行这行
+   - 在Git terminal里面运行这行 <br>
     git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
   - 以后只要运行 git lg 能看到更好看的版本更新记录
 
