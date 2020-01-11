@@ -27,7 +27,9 @@
 4. 一点小建议
    - 在Git terminal里面运行这行 <br>
     git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-  - 以后只要运行 git lg 能看到更好看的版本更新记录
+   - 以后只要运行 git lg 能看到更好看的版本更新记录
+
+   - VS Code 打开PDF这个功能不太好用，所以最好还是直接用别的软件打开
 
 ## Directories
 - See file [dir.md](dir.txt)
