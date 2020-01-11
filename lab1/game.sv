@@ -9,7 +9,8 @@ module game
 	output o_under,
 	output o_over,
 	output o_equal,
-	output o_update_leds
+	output o_update_leds,
+	output [3:0] o_remaining_attempts // REVIEW the remaining attempts
 );
 	// Datapath
 	logic dp_inc_actual;
@@ -37,7 +38,8 @@ module game
 		.i_over(dp_over),
 		.i_under(dp_under),
 		.i_equal(dp_equal),
-		.o_update_leds(o_update_leds)
+		.o_update_leds(o_update_leds),
+		.o_remaining_attempts(o_remaining_attempts) // REVIEW the remaining attempts
 	);
 	
 	assign o_under = dp_under;

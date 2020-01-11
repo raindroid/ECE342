@@ -48,6 +48,7 @@ module de1soc_top
 	wire over;
 	wire equal;
 	wire update_leds;
+	wire [3:0] remaining_attempts;	// REVIEW display the remaining attempts
 	game game_inst
 	(
 		.clk(clk),
@@ -57,7 +58,8 @@ module de1soc_top
 		.o_under(under),
 		.o_over(over),
 		.o_equal(equal),
-		.o_update_leds(update_leds)
+		.o_update_leds(update_leds),
+		.o_remaining_attempts(remaining_attempts) // REVIEW the remaining attempts
 	);
 	
 	// LED controllers
@@ -82,8 +84,13 @@ module de1soc_top
 	assign HEX2 = '1;
 	assign HEX3 = '1;
 	assign HEX4 = '1;
-	assign HEX5 = '1;
+	// assign HEX5 = '1;
 
-	// NOTE HEX5 is used to display the remaining attempts
+	// REVIEW HEX5 is used to display the remaining attempts
+	hex_decoder hexdec_attempts
+	(
+		.hex_digit(remaining_attempts),
+		.segments(HEX5)
+	);
 	
 endmodule
