@@ -3,25 +3,26 @@
 ├── VSCode_plugins.txt      推荐的VSCode插件
 ├── dir.md          这个文件
 ├── lab0            
-│   ├── generic_hw.pdf  
-│   ├── lab0.pdf
-│   ├── modelsim.pdf
-│   ├── system verilog.pdf
-│   └── testbench.pdf
+│   ├── generic_hw.pdf  还没看
+│   ├── lab0.pdf        没啥用
+│   ├── modelsim.pdf    回忆一下
+│   ├── system verilog.pdf  大概看看
+│   └── testbench.pdf   可看
 └── lab1
-    ├── c5_pin_model_dump.txt
-    ├── control.sv
-    ├── datapath.sv
-    ├── de1soc.qpf
+    ├── Lab 1 notes.pdf 一些小Notes
+    ├── c5_pin_model_dump.txt   
+    ├── control.sv      教授给的，part 1 & 2 都要改的地方
+    ├── datapath.sv     教授给的
+    ├── de1soc.qpf      打开这个文件
     ├── de1soc.qsf
     ├── de1soc.sdc
     ├── de1soc_assignment_defaults.qdf
-    ├── de1soc_top.sv
-    ├── game.sv
-    ├── hex_decoder.sv
-    ├── lab1.pdf
-    ├── lab1_kit.zip
-    ├── led_ctrl.sv
-    ├── part1.do
-    ├── part2.do
+    ├── de1soc_top.sv   Top连接KEY，SW，LED, HEX, 和逻辑部分 part 2 小修改
+    ├── game.sv         Game部分 （包括 datapath和control）part2 小修改
+    ├── hex_decoder.sv  教授给的
+    ├── lab1.pdf        题目
+    ├── lab1_kit.zip    一开始给的东西（已经解压在这个文件夹里了）
+    ├── led_ctrl.sv     教授给的
+    ├── part1.do        我加的 part 1 测试文件
+    ├── part2.do        我加的 part 2 测试文件
     ├── vsim.wlf
