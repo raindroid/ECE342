@@ -2,6 +2,9 @@
 
 ### 为了防止让这门作业变成一个人的作业，我决定认真写下这个Readme
 
+## Target
+小目标：两个人稳过A
+
 ## Enviroment
 1. 编译： Quartus Prime Lite Edition 18.1 (windows)
    - Device: 5CSEMA5F31C6 （应该用不到）
