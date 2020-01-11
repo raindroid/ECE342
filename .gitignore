@@ -1,0 +1,5 @@
+db
+*.exe
+work
+incremental_db
+out

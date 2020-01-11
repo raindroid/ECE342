@@ -1,0 +1,24 @@
+1. 界面
+Material Theme  https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme
+Material Icon Theme  https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme
+
+2. C++ / Python
+C/C++  https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools
+Python  https://marketplace.visualstudio.com/items?itemName=ms-python.python
+
+3. Verilog
+Verilog HDL/SystemVerilog  https://marketplace.visualstudio.com/items?itemName=mshr-h.VerilogHDL
+Steps: https://zhuanlan.zhihu.com/p/38178015
+
+4. Markdown 和 LaTeX
+Markdown All in One  https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one
+
+5. 代码相关
+Bracket Pair Colorizer 2  https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2
+Bracket Jumper  https://marketplace.visualstudio.com/items?itemName=sashaweiss.bracket-jumper
+
+6. 注释相关
+Comment Anchors  https://marketplace.visualstudio.com/items?itemName=ExodiusStudios.comment-anchors
+
+7. Git相关
+GitLens  https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens

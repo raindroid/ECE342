@@ -83,5 +83,7 @@ module de1soc_top
 	assign HEX3 = '1;
 	assign HEX4 = '1;
 	assign HEX5 = '1;
+
+	// NOTE HEX5 is used to display the remaining attempts
 	
 endmodule
