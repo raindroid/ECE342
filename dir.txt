@@ -1,0 +1,27 @@
+.
+├── DE1_SoC.qsf     DE1_SoC的assignment，备份用
+├── VSCode_plugins.txt
+├── dir.md
+├── lab0
+│   ├── generic_hw.pdf
+│   ├── lab0.pdf
+│   ├── modelsim.pdf
+│   ├── system verilog.pdf
+│   └── testbench.pdf
+└── lab1
+    ├── c5_pin_model_dump.txt
+    ├── control.sv
+    ├── datapath.sv
+    ├── de1soc.qpf
+    ├── de1soc.qsf
+    ├── de1soc.sdc
+    ├── de1soc_assignment_defaults.qdf
+    ├── de1soc_top.sv
+    ├── game.sv
+    ├── hex_decoder.sv
+    ├── lab1.pdf
+    ├── lab1_kit.zip
+    ├── led_ctrl.sv
+    ├── part1.do
+    ├── part2.do
+    ├── vsim.wlf
