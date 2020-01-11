@@ -18,6 +18,10 @@
 3. 写码：Visual Studio Code
    - 在目录下有这么个文件 [VSCode_plugins.txt](./VSCode_plugins.txt) 里面放了一些我觉得比较有用的VSCode插件，可以按名字在侧边栏搜索，或者点链接也可以 （实在懒 我帮你装）
    - 这个文件是markdown格式，打开VSCode点击右上角有一个 "Open Preview" 的小按钮 （一个小窗户带一个放大镜的图标）可以更舒服的看这个文件
+4. 一点小建议
+   - 在Git terminal里面运行这行
+    git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+  - 以后只要运行 git lg 能看到更舒服的版本更新记录
 
 ## Directories
 - See file [dir.md](dir.txt)

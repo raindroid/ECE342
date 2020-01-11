@@ -1,9 +1,9 @@
 .
 ├── DE1_SoC.qsf     DE1_SoC的assignment，备份用
-├── VSCode_plugins.txt
-├── dir.md
-├── lab0
-│   ├── generic_hw.pdf
+├── VSCode_plugins.txt      推荐的VSCode插件
+├── dir.md          这个文件
+├── lab0            
+│   ├── generic_hw.pdf  
 │   ├── lab0.pdf
 │   ├── modelsim.pdf
 │   ├── system verilog.pdf
