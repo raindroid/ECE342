@@ -3,4 +3,13 @@ db
 work
 incremental_db
 out
-vsim.wlf
+timing
+# ignore simulation output of ModelSim
+wlf*
+*.wlf
+*.vstf
+*.ucdb
+cov*/
+transcript*
+sc_dpiheader.h
+vsim.dbg
