@@ -74,14 +74,14 @@ always_comb begin
 		begin
 			nextstate = i_enter ? S_B : S_C;
 		end
-		S_C: // NOTE Wait for compare result
+		S_C: // NOTE Wait for compare result, this step is not necessary 
 		begin
 			nextstate = S_D;
-			less_remaining_attemps = 1'b1;
 		end
-		S_D: // NOTE Display the result
+		S_D: // NOTE Display the result, and (for Part 2) update the remaining attempts
 		begin
 			o_update_leds = 1'b1;
+			less_remaining_attemps = 1'b1;
 			nextstate = i_equal ? S_E : (o_remaining_attempts == 0 ? S_G : S_F);
 		end
 		S_E: // NOTE WON the game
