@@ -6,14 +6,14 @@ module tb_signed_array_multiplier;
 
 // signed_array_multiplier Parameters
 parameter PERIOD = 10;
-parameter N  = 8;
+parameter N  = 3;
 
 // signed_array_multiplier Inputs
 reg   [N - 1: 0]  i_m                      = 0 ;
 reg   [N - 1: 0]  i_q                      = 0 ;
 
 // signed_array_multiplier Outputs
-wire  [2 * N - 1: 0]  o_p                  ;
+wire  [2 * N - 2: 0]  o_p                  ;
 
 signed_array_multiplier #(
     .N ( N ))
@@ -21,7 +21,7 @@ signed_array_multiplier #(
     .i_m                     ( i_m  [N - 1: 0]     ),
     .i_q                     ( i_q  [N - 1: 0]     ),
 
-    .o_p                     ( o_p  [2 * N - 1: 0] )
+    .o_p                     ( o_p  [2 * N - 2: 0] )
 );
 
 initial

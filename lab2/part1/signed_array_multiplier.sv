@@ -10,10 +10,11 @@ module signed_array_multiplier #(
     input [N - 1: 0] i_m,
     input [N - 1: 0] i_q,
 
-    output [2 * N - 1: 0] o_p
+    output [2 * N - 2: 0] o_p
 );
 
     logic [N - 1: 0] plus, minus;
+    logic [2 * N - 1: 0] pout;
 
     genvar i, j;
 
@@ -86,11 +87,13 @@ module signed_array_multiplier #(
             );
 
             // NOTE assign the last N-1 bits to the result
-            assign o_p[i] = p[i+1][0];
+            assign pout[i] = p[i+1][0];
 
             // NOTE assign the middle bits
-            assign o_p[i + N] = p[N][i+1];
+            assign pout[i + N] = p[N][i+1];
         end
     endgenerate
+
+    assign o_p = pout[2 * N - 2: 0];
     
 endmodule
