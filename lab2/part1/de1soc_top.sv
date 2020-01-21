@@ -35,5 +35,13 @@ module de1soc_top
 );
 	
 	// Design goes here
+    // REVIEW 
+    parameter N = 8;
+    reg [N - 1:0] x, y;
+    reg [2 * N - 1:0] out;
+
+    always_ff @(posedge CLOCK_50) begin
+        
+    end
 	
 endmodule

@@ -41,12 +41,12 @@ module signed_array_multiplier #(
     endgenerate
 
     
-    logic [N + 1: 0] carry [N - 1: 0];
-    logic [N: 0] p [N: 0];
+    logic [2 * N - 1: 0] carry [N - 1: 0];
+    logic [2 * N + 1: 0] p [N: 0];
     logic [N - 1: 0] sign [N - 1: 0];
 
     // NOTE the first N bits P are 0s
-    assign p[0] = {(N + 1){1'b0}};
+    assign p[0] = {(2 * N + 1){1'b0}};
 
     // NOTE connect C[x][0] to minus[x]
     generate
@@ -54,7 +54,6 @@ module signed_array_multiplier #(
             assign carry[i][0] = minus[i];
         end
     endgenerate
-    assign carry[0][N+1] = 1'b0;
 
     // NOTE generate the mulpilier arrays
     generate
@@ -76,15 +75,18 @@ module signed_array_multiplier #(
                 );
             end
 
-            // REVIEW See the extra notes as an example (FA_0)
-            full_adder fa(
-                .A(carry[i][N+1]),  // C_0_9
-                .B(sign[i][N-1]),   // Sign_0_7
-                .Cin(carry[i][N]),  // C_0_8
+            // REVIEW See the extra notes as an example 
+            for (j = 0; j < N - i; j++) begin
+                // NOTE (FA_00) as an example 
+                full_adder fa(
+                    .A(p[i][j + N + 1]),
+                    .B(sign[i][N - 1]),     // Sign_0_7
+                    .Cin(carry[i][j + N]),  // C_0_8
 
-                .Cout(carry[i+1][N+1]), // C_1_9
-                .S(p[i+1][N]) // P_1_8
-            );
+                    .Cout(carry[i][j + N + 1]), // C_0_9
+                    .S(p[i+1][j + N])
+                );
+            end 
 
             // NOTE assign the last N-1 bits to the result
             assign pout[i] = p[i+1][0];
