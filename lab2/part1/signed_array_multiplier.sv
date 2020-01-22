@@ -10,17 +10,21 @@ module signed_array_multiplier #(
     input [N - 1: 0] i_m,
     input [N - 1: 0] i_q,
 
-    output [2 * N - 2: 0] o_p
+    output [2 * N - 1: 0] o_p
 );
 
     logic [N - 1: 0] plus, minus;
     logic [2 * N - 1: 0] pout;
 
+    logic [2 * N: 0] carry [N - 1: 0];
+    logic [2 * N: 0] p [N: 0];
+    logic [N - 1: 0] sign [N - 1: 0];
+
     genvar i, j;
 
     // NOTE generate BE modules
     generate
-        for (i = 0; i < N; i ++) begin
+        for (i = 0; i < N; i ++) begin : booth_encoders
             if (i == 0) begin
                 booth_encoder  u_booth_encoder (
                     .i_Qi_1     (1'b0),
@@ -41,24 +45,21 @@ module signed_array_multiplier #(
     endgenerate
 
     
-    logic [2 * N - 1: 0] carry [N - 1: 0];
-    logic [2 * N + 1: 0] p [N: 0];
-    logic [N - 1: 0] sign [N - 1: 0];
 
     // NOTE the first N bits P are 0s
-    assign p[0] = {(2 * N + 1){1'b0}};
+    assign p[0] = {(2 * N){1'b0}};
 
     // NOTE connect C[x][0] to minus[x]
     generate
-        for (i = 0; i < N; i++) begin
+        for (i = 0; i < N; i++) begin : carrys
             assign carry[i][0] = minus[i];
         end
     endgenerate
 
     // NOTE generate the mulpilier arrays
     generate
-        for (i = 0; i < N; i++) begin
-            for (j = 0; j < N; j++) begin
+        for (i = 0; i < N; i++) begin : multiplier
+            for (j = 0; j < N; j++) begin : multiplier_cells
                 // REVIEW See the extra notes as an example (M_0_0)
                 multiplier_cell mc(
                     .i_pin(p[i][j+1]),  // P_0_1
@@ -76,7 +77,7 @@ module signed_array_multiplier #(
             end
 
             // REVIEW See the extra notes as an example 
-            for (j = 0; j < N - i; j++) begin
+            for (j = 0; j < N - i; j++) begin : full_adders
                 // NOTE (FA_00) as an example 
                 full_adder fa(
                     .A(p[i][j + N + 1]),
@@ -96,6 +97,6 @@ module signed_array_multiplier #(
         end
     endgenerate
 
-    assign o_p = pout[2 * N - 2: 0];
+    assign o_p = pout;
     
 endmodule
