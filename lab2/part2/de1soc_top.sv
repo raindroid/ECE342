@@ -53,7 +53,7 @@ module de1soc_top
         out <= w_out;
     end
 
-    signed_array_multiplier #(
+    carry_save_multiplier #(
         .N(N)
     ) 
     SAM (

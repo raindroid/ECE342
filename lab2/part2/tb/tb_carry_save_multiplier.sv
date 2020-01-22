@@ -33,9 +33,9 @@ begin
     int correct_cnt;
     int wrong_cnt;
 
-    // // NOTE Single Test
-    // m = 11;
-    // q = 11;
+    // NOTE Single Test
+    // m = 1;
+    // q = 1;
     // expected = m * q;
     // i_m = m;
     // i_q = q;

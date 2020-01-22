@@ -26,7 +26,7 @@ module fast_adder #
 
     // NOTE Connect g_i, p_i
     generate 
-        for (i = 0; i < N; i++) begin
+        for (i = 0; i < N; i++) begin : adder_units
             assign g[i] = A[i] & B[i];
             assign p[i] = A[i] | B[i];
             assign C[i + 1] = g[i] | p[i] & C[i];
