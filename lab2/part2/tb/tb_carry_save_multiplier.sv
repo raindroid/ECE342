@@ -6,7 +6,7 @@ module tb_carry_save_multiplier;
 
 // carry_save_multiplier Parameters
 parameter PERIOD = 10;
-parameter N  = 4;
+parameter N  = 8;
 
 // carry_save_multiplier Inputs
 reg   [N - 1: 0]  i_m                      = 0 ;
