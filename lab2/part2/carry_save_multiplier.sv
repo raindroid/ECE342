@@ -28,13 +28,13 @@ module carry_save_multiplier #(
     // NOTE the first N bits carry are 0s
     assign carry[0] = {(N){1'b0}};
 
-    // NOTE generate the mulpilier arrays
+    // REVIEW generate the mulpilier arrays
     generate
         for (i = 0; i < N; i++) begin : multiplier_partial_rows
             assign p[i][N] = 1'b0;  // init value of the top bits
             for (j = 0; j < N; j++) begin : multiplier_cells
                 assign mq[i][j] = i_m[i] & i_q[j];
-                // REVIEW See the extra notes as an example (FA_0_0)
+                // NOTE See the extra notes as an example (FA_0_0)
                 full_adder mc(
                     .A(p[i][j+1]),      // p_0_1
                     .B(mq[i][j]),       // mq_0_0

@@ -56,11 +56,11 @@ module signed_array_multiplier #(
         end
     endgenerate
 
-    // NOTE generate the mulpilier arrays
+    // REVIEW generate the mulpilier arrays
     generate
         for (i = 0; i < N; i++) begin : multiplier_partial_rows
             for (j = 0; j < N; j++) begin : multiplier_cells
-                // REVIEW See the extra notes as an example (M_0_0)
+                // NOTE See the extra notes as an example (M_0_0)
                 multiplier_cell mc(
                     .i_pin(p[i][j+1]),  // P_0_1
                     .i_m(i_m[j]),       // m_0
@@ -76,7 +76,7 @@ module signed_array_multiplier #(
                 );
             end
 
-            // REVIEW See the extra notes as an example 
+            // NOTE See the extra notes as an example 
             for (j = 0; j < N - i; j++) begin : full_adders
                 // NOTE (FA_00) as an example 
                 full_adder fa(

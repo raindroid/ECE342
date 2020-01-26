@@ -23,8 +23,17 @@ module wallace_tree_multiplier
 
     // NOTE generate p0
     generate
-        for (int i = 0; i < 8; i++) begin: 
+        for (int i = 0; i < 8; i++) begin: p0_rows
+            for (j = 0; j < 8; j++) begin: p0_cells
+                p[i][j] = i_m[i] & i_q[j];                
+            end
+        end
     endgenerate 
+
+    // NOTE level 1 generate p1
+    generate
+        
+    endgenerate
 
 
     assign o_p = pout;
