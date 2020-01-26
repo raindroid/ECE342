@@ -58,7 +58,7 @@ module signed_array_multiplier #(
 
     // NOTE generate the mulpilier arrays
     generate
-        for (i = 0; i < N; i++) begin : multiplier
+        for (i = 0; i < N; i++) begin : multiplier_partial_rows
             for (j = 0; j < N; j++) begin : multiplier_cells
                 // REVIEW See the extra notes as an example (M_0_0)
                 multiplier_cell mc(

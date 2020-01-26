@@ -30,7 +30,7 @@ module carry_save_multiplier #(
 
     // NOTE generate the mulpilier arrays
     generate
-        for (i = 0; i < N; i++) begin : multiplier
+        for (i = 0; i < N; i++) begin : multiplier_partial_rows
             assign p[i][N] = 1'b0;  // init value of the top bits
             for (j = 0; j < N; j++) begin : multiplier_cells
                 assign mq[i][j] = i_m[i] & i_q[j];
