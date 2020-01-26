@@ -270,8 +270,9 @@ set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
 
 set_instance_assignment -name FAST_INPUT_REGISTER ON -to *
 set_instance_assignment -name FAST_OUTPUT_ENABLE_REGISTER ON -to *
+set_global_assignment -name SYSTEMVERILOG_FILE wallace_tree_multiplier.sv
+set_global_assignment -name SYSTEMVERILOG_FILE half_adder.sv
 set_global_assignment -name SYSTEMVERILOG_FILE fast_adder.sv
-set_global_assignment -name SYSTEMVERILOG_FILE carry_save_multiplier.sv
 set_global_assignment -name SYSTEMVERILOG_FILE multiplier_cell.sv
 set_global_assignment -name SYSTEMVERILOG_FILE hex_decoder.sv
 set_global_assignment -name SYSTEMVERILOG_FILE full_adder.sv

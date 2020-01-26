@@ -89,6 +89,9 @@ module de1soc_top
 		.segments(HEX3)
 	);
 
+    // assign HEX4 = '0;
+    // assign HEX5 = '0;
+
     hex_decoder hex4
 	(
 		.hex_digit(SW[3:0]),

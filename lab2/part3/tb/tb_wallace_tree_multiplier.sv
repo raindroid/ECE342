@@ -2,22 +2,20 @@
 
 `timescale  1ns / 1ps
 
-module tb_carry_save_multiplier;
+module tb_wallace_tree_multiplier;
 
-// carry_save_multiplier Parameters
+// wallace_tree_multiplier Parameters
 parameter PERIOD = 10;
 parameter N  = 8;
 
-// carry_save_multiplier Inputs
+// wallace_tree_multiplier Inputs
 reg   [N - 1: 0]  i_m                      = 0 ;
 reg   [N - 1: 0]  i_q                      = 0 ;
 
-// carry_save_multiplier Outputs
+// wallace_tree_multiplier Outputs
 wire  [2 * N - 1: 0]  o_p                  ;
 
-carry_save_multiplier #(
-    .N ( N ))
- u_carry_save_multiplier (
+wallace_tree_multiplier u_wallace_tree_multiplier (
     .i_m                     ( i_m  [N - 1: 0]     ),
     .i_q                     ( i_q  [N - 1: 0]     ),
 
@@ -34,8 +32,8 @@ begin
     int wrong_cnt;
 
     // NOTE Single Test
-    // m = 1;
-    // q = 1;
+    // m = 12;
+    // q = 18;
     // expected = m * q;
     // i_m = m;
     // i_q = q;

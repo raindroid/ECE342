@@ -53,10 +53,7 @@ module de1soc_top
         out <= w_out;
     end
 
-    carry_save_multiplier #(
-        .N(N)
-    ) 
-    SAM (
+    wallace_tree_multiplier WTM (
         .i_m(x),
         .i_q(y),
         
@@ -88,6 +85,9 @@ module de1soc_top
 		.hex_digit(out[15:12]),
 		.segments(HEX3)
 	);
+    
+    // assign HEX4 = '0;
+    // assign HEX5 = '0;
 
     hex_decoder hex4
 	(
