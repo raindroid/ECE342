@@ -7,8 +7,8 @@ module half_adder (
     input A,
     input B,
 
-    output logic Cout,
-    output logic S
+    output logic S,
+    output logic Cout
 );
 
     assign S = A ^ B;

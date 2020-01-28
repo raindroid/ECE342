@@ -35,29 +35,47 @@ module de1soc_top
 );
 	
 	// Design goes here
-    // REVIEW 
-    parameter N = 8;
-    reg [N - 1:0] x, y;
-    reg [2 * N - 1:0] out;
+	
+    logic [7:0] num;
+    logic en;
+    logic clk;
 
-    wire en_X = SW[9];
-    wire en_Y = ~SW[9];
-    wire [2 * N - 1:0] w_out;
+    assign num = SW[7:0];
+    assign en = SW[9];
+    assign clk = CLOCK_50;
 
-    wire [7:0] D_plus;
-    wire [7:0] D_minus;
+    logic [7:0] x;
+    logic [7:0] y;
+    logic [15:0] w_out;
+    logic [15:0] out;
+    
 
-    always_ff @(posedge CLOCK_50) begin
-        if (en_X) x <= SW[7:0];
-        if (en_Y) y <= SW[7:0];
-        out <= w_out;
-    end
-
-    wallace_tree_multiplier WTM (
+    wallace_tree_multiplier mut (
         .i_m(x),
         .i_q(y),
         
         .o_p(w_out)
+    );
+
+    reg_n # (.N(8)) m_x (
+        .i_clk (clk),
+        .i_en  (en),
+        .i_in(num),
+        .o_data(x)
+    );
+
+    reg_n # (.N(8)) m_y (
+        .i_clk (clk),
+        .i_en  (~en),
+        .i_in(num),
+        .o_data(y)
+    );
+
+    reg_n # (.N(16)) m_out (
+        .i_clk (clk),
+        .i_en  (1'b1),
+        .i_in(w_out),
+        .o_data(out)
     );
 
     assign LEDR = '0;
@@ -86,8 +104,8 @@ module de1soc_top
 		.segments(HEX3)
 	);
     
-    // assign HEX4 = '0;
-    // assign HEX5 = '0;
+    // assign HEX4 = '1;
+    // assign HEX5 = '1;
 
     hex_decoder hex4
 	(

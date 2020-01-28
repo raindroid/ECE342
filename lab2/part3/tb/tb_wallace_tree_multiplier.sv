@@ -31,9 +31,11 @@ begin
     int correct_cnt;
     int wrong_cnt;
 
+    int limit = 256; // (2 << (N - 1));
+
     // NOTE Single Test
-    // m = 12;
-    // q = 18;
+    // m = 15;
+    // q = 16;
     // expected = m * q;
     // i_m = m;
     // i_q = q;
@@ -44,8 +46,8 @@ begin
     // $display("M: %5d, Q: %5d, Expected: %5d, Result: %5d (0x%4x) - %s", m, q, expected, o_p, o_p, (o_p == m * q) ? "Correct" : "Wrong");
 
     // NOTE Test all values
-    for (m = 0; m < (2 << (N - 1)); m++) begin
-        for (q = 0; q < (2 << (N - 1)); q++) begin  
+    for (m = 0; m < limit; m++) begin
+        for (q = 0; q < limit; q++) begin  
             i_m = m;
             i_q = q;
             #1;

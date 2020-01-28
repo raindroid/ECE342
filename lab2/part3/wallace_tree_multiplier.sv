@@ -1,263 +1,106 @@
-/**
- * REVIEW 
- * module wallace_tree_multiplier
- */
-
-module wallace_tree_multiplier 
+module wallace_tree_multiplier
 (
-    input [7: 0] i_m,
-    input [7: 0] i_q,
+	input [7:0] i_m,
+	input [7:0] i_q,
 
-    output [15: 0] o_p
+	output [15:0] o_p
 );
 
-    logic [14:0] p0 [7:0];  // level 0 input
-    logic [14:0] p1 [5:0];  // level 1 output
-    logic [14:0] p2 [3:0];  // level 2 output
-    logic [14:0] p3 [2:0];  // level 3 output
-    logic [15:0] p4 [1:0];  // level 4 output
+    logic [7:0] p [7:0];  // stage 0 input
+    logic [20:0] s0, c0;
+    logic [12:0] s1, c1;
+    logic [9:0] s2, c2;
+    logic [10:0] s3, c3;
 
     logic [16: 0] pout; // final result
-    
-    genvar i, j;
 
+    genvar i, j;
     // NOTE generate p0
     generate
         for (i = 0; i < 8; i++) begin: p0_rows
             for (j = 0; j < 8; j++) begin: p0_cells
-                assign p0[i][j + i] = i_m[i] & i_q[j];                
+                assign p[i][j] = i_m[i] & i_q[j];                
             end
         end
     endgenerate 
 
-    // REVIEW level 1 generate p1
-    generate
-        // NOTE no adder involved
-        assign p1[0][0] = p0[0][0];     // p1_0_0
-        assign p1[0][9] = p0[2][9];     // p1_0_9
-        assign p1[2][3] = p0[3][3];     // p1_2_3
-        assign p1[2][12] = p0[5][12];   // p1_2_12
-        assign p1[4][13:6] = p0[6][13:6];   // p1 row 4
-        assign p1[5][14:7] = p0[7][14:7];   // p1 row 5
-        // NOTE 4 HAs
-        half_adder  ha_level1_0 ( 
-            .A (p0[0][1]),
-            .B (p0[1][1]),
-            .S (p1[0][1]),
-            .Cout    (p1[1][2])
-        );
-        half_adder  ha_level1_1 ( 
-            .A (p0[1][8]),
-            .B (p0[2][8]),
-            .S (p1[0][8]),
-            .Cout    (p1[1][9])
-        );
-        half_adder  ha_level1_2 ( 
-            .A (p0[3][4]),
-            .B (p0[4][4]),
-            .S (p1[2][4]),
-            .Cout    (p1[3][5])
-        );
-        half_adder  ha_level1_3 ( 
-            .A (p0[4][11]),
-            .B (p0[5][11]),
-            .S (p1[2][11]),
-            .Cout    (p1[3][12])
-        );
-        // NOTE 12 FAs
-        for (i = 2; i <= 7; i++) begin: fa_level1_1st_half
-            full_adder  fa (  // use the first HA at top right as an example
-                .A   (p0[0][i]),  // p0_0_2
-                .B   (p0[1][i]),  // p0_1_2
-                .Cin (p0[2][i]),  // p0_2_2
+     // REVIEW stage 0
+    full_adder  Stage0_HA_0 (.A(p[0][1]), .B(p[1][0]), .Cin(1'b0), .S(s0[0]), .Cout(c0[0]));
+    full_adder  Stage0_FA_1 (.A(p[0][2]), .B(p[1][1]), .Cin(p[2][0]), .S(s0[1]), .Cout(c0[1]));
+    full_adder  Stage0_FA_2 (.A(p[0][3]), .B(p[1][2]), .Cin(p[2][1]), .S(s0[2]), .Cout(c0[2]));
+    full_adder  Stage0_FA_3 (.A(p[0][4]), .B(p[1][3]), .Cin(p[2][2]), .S(s0[3]), .Cout(c0[3]));
+    full_adder  Stage0_HA_4 (.A(p[3][1]), .B(p[4][0]), .Cin(1'b0), .S(s0[4]), .Cout(c0[4]));
+    full_adder  Stage0_FA_5 (.A(p[0][5]), .B(p[1][4]), .Cin(p[2][3]), .S(s0[5]), .Cout(c0[5]));
+    full_adder  Stage0_FA_6 (.A(p[3][2]), .B(p[4][1]), .Cin(p[5][0]), .S(s0[6]), .Cout(c0[6]));
+    full_adder  Stage0_FA_7 (.A(p[0][6]), .B(p[1][5]), .Cin(p[2][4]), .S(s0[7]), .Cout(c0[7]));
+    full_adder  Stage0_FA_8 (.A(p[3][3]), .B(p[4][2]), .Cin(p[5][1]), .S(s0[8]), .Cout(c0[8]));
+    full_adder  Stage0_FA_9 (.A(p[0][7]), .B(p[1][6]), .Cin(p[2][5]), .S(s0[9]), .Cout(c0[9]));
+    full_adder  Stage0_FA_10 (.A(p[3][4]), .B(p[4][3]), .Cin(p[5][2]), .S(s0[10]), .Cout(c0[10]));
+    full_adder  Stage0_HA_11 (.A(p[6][1]), .B(p[7][0]), .Cin(1'b0), .S(s0[11]), .Cout(c0[11]));
+    full_adder  Stage0_FA_12 (.A(p[1][7]), .B(p[2][6]), .Cin(p[3][5]), .S(s0[12]), .Cout(c0[12]));
+    full_adder  Stage0_FA_13 (.A(p[4][4]), .B(p[5][3]), .Cin(p[6][2]), .S(s0[13]), .Cout(c0[13]));
+    full_adder  Stage0_FA_14 (.A(p[2][7]), .B(p[3][6]), .Cin(p[4][5]), .S(s0[14]), .Cout(c0[14]));
+    full_adder  Stage0_FA_15 (.A(p[5][4]), .B(p[6][3]), .Cin(p[7][2]), .S(s0[15]), .Cout(c0[15]));
+    full_adder  Stage0_FA_16 (.A(p[3][7]), .B(p[4][6]), .Cin(p[5][5]), .S(s0[16]), .Cout(c0[16]));
+    full_adder  Stage0_HA_17 (.A(p[6][4]), .B(p[7][3]), .Cin(1'b0), .S(s0[17]), .Cout(c0[17]));
+    full_adder  Stage0_FA_18 (.A(p[4][7]), .B(p[5][6]), .Cin(p[6][5]), .S(s0[18]), .Cout(c0[18]));
+    full_adder  Stage0_FA_19 (.A(p[5][7]), .B(p[6][6]), .Cin(p[7][5]), .S(s0[19]), .Cout(c0[19]));
+    full_adder  Stage0_HA_20 (.A(p[6][7]), .B(p[7][6]), .Cin(1'b0), .S(s0[20]), .Cout(c0[20]));
 
-                .S(p1[0][i]),  // p1_0_2
-                .Cout   (p1[1][i+1])   // p1_1_3
-            );
-        end
-        for (i = 5; i <= 10; i++) begin: fa_level1_2nd_half
-            full_adder  fa (  // use the first HA at bottom right as an example
-                .A   (p0[3][i]),  // p0_3_5
-                .B   (p0[4][i]),  // p0_4_5
-                .Cin (p0[5][i]),  // p0_5_5
+    // REVIEW stage 1
+    full_adder  Stage1_HA_0 (.A(s0[1]), .B(c0[0]), .Cin(1'b0), .S(s1[0]), .Cout(c1[0]));
+    full_adder  Stage1_FA_1 (.A(s0[2]), .B(c0[1]), .Cin(p[3][0]), .S(s1[1]), .Cout(c1[1]));
+    full_adder  Stage1_FA_2 (.A(s0[3]), .B(c0[2]), .Cin(s0[4]), .S(s1[2]), .Cout(c1[2]));
+    full_adder  Stage1_FA_3 (.A(s0[5]), .B(c0[3]), .Cin(c0[4]), .S(s1[3]), .Cout(c1[3]));
+    full_adder  Stage1_FA_4 (.A(s0[7]), .B(c0[5]), .Cin(c0[6]), .S(s1[4]), .Cout(c1[4]));
+    full_adder  Stage1_HA_5 (.A(p[6][0]), .B(s0[8]), .Cin(1'b0), .S(s1[5]), .Cout(c1[5]));
+    full_adder  Stage1_FA_6 (.A(s0[9]), .B(c0[7]), .Cin(c0[8]), .S(s1[6]), .Cout(c1[6]));
+    full_adder  Stage1_HA_7 (.A(s0[10]), .B(s0[11]), .Cin(1'b0), .S(s1[7]), .Cout(c1[7]));
+    full_adder  Stage1_FA_8 (.A(s0[12]), .B(p[7][1]), .Cin(s0[13]), .S(s1[8]), .Cout(c1[8]));
+    full_adder  Stage1_FA_9 (.A(c0[10]), .B(c0[11]), .Cin(c0[9]), .S(s1[9]), .Cout(c1[9]));
+    full_adder  Stage1_FA_10 (.A(s0[14]), .B(c0[12]), .Cin(c0[13]), .S(s1[10]), .Cout(c1[10]));
+    full_adder  Stage1_FA_11 (.A(s0[16]), .B(c0[15]), .Cin(c0[14]), .S(s1[11]), .Cout(c1[11]));
+    full_adder  Stage1_FA_12 (.A(s0[18]), .B(c0[16]), .Cin(c0[17]), .S(s1[12]), .Cout(c1[12]));
 
-                .S(p1[2][i]),  // p1_2_5
-                .Cout   (p1[3][i+1])   // p1_3_6
-            );
-        end
-    endgenerate
+    // REVIEW stage 2
+    full_adder  Stage2_HA_0 (.A(s1[1]), .B(c1[0]), .Cin(1'b0), .S(s2[0]), .Cout(c2[0]));
+    full_adder  Stage2_HA_1 (.A(s1[2]), .B(c1[1]), .Cin(1'b0), .S(s2[1]), .Cout(c2[1]));
+    full_adder  Stage2_FA_2 (.A(s1[3]), .B(c1[2]), .Cin(s0[6]), .S(s2[2]), .Cout(c2[2]));
+    full_adder  Stage2_FA_3 (.A(s1[4]), .B(c1[3]), .Cin(s1[5]), .S(s2[3]), .Cout(c2[3]));
+    full_adder  Stage2_FA_4 (.A(s1[6]), .B(c1[4]), .Cin(c1[5]), .S(s2[4]), .Cout(c2[4]));
+    full_adder  Stage2_FA_5 (.A(s1[8]), .B(c1[6]), .Cin(c1[7]), .S(s2[5]), .Cout(c2[5]));
+    full_adder  Stage2_FA_6 (.A(s1[10]), .B(c1[8]), .Cin(c1[9]), .S(s2[6]), .Cout(c2[6]));
+    full_adder  Stage2_FA_7 (.A(s1[11]), .B(c1[10]), .Cin(s0[17]), .S(s2[7]), .Cout(c2[7]));
+    full_adder  Stage2_FA_8 (.A(s1[12]), .B(c1[11]), .Cin(p[7][4]), .S(s2[8]), .Cout(c2[8]));
+    full_adder  Stage2_FA_9 (.A(c1[12]), .B(s0[19]), .Cin(c0[18]), .S(s2[9]), .Cout(c2[9]));
 
-    // REVIEW level 2 generate p2
-    generate
-        // NOTE no adder used
-        assign p2[0][1:0] = p1[0][1:0];
-        assign p2[1][12:11] = p1[2][12:11];
-        assign p2[0][10] = p1[2][10];
-        assign p2[2][5] = p1[3][5];
-        assign p2[2][14] = p1[5][14];
-        // NOTE 3 HAs
-        half_adder  ha_level2_0 ( 
-            .A (p1[0][2]),    
-            .B (p1[1][2]),
-            .S (p2[0][2]),
-            .Cout    (p2[1][3])
-        );
-        half_adder  ha_level2_1 ( 
-            .A (p1[3][6]),
-            .B (p1[4][6]),
-            .S (p2[2][6]),
-            .Cout    (p2[3][7])
-        );
-        half_adder  ha_level2_2 ( 
-            .A (p1[4][13]),
-            .B (p1[5][13]),
-            .S (p2[2][13]),
-            .Cout    (p2[3][14])
-        );
-        // NOTE 13 FAs
-        for (i = 3; i <= 9; i++) begin: fa_level2_1st_half
-            full_adder  fa (  // use the first HA on top right as an example
-                .A   (p1[0][i]),  // p1_0_3
-                .B   (p1[1][i]),  // p1_1_3
-                .Cin (p1[2][i]),  // p1_2_3
+    // REVIEW stage 3
+    full_adder  Stage3_HA_0 (.A(s2[1]), .B(c2[0]), .Cin(1'b0), .S(s3[0]), .Cout(c3[0]));
+    full_adder  Stage3_HA_1 (.A(s2[2]), .B(c2[1]), .Cin(1'b0), .S(s3[1]), .Cout(c3[1]));
+    full_adder  Stage3_HA_2 (.A(s2[3]), .B(c2[2]), .Cin(1'b0), .S(s3[2]), .Cout(c3[2]));
+    full_adder  Stage3_FA_3 (.A(s2[4]), .B(c2[3]), .Cin(s1[7]), .S(s3[3]), .Cout(c3[3]));
+    full_adder  Stage3_FA_4 (.A(s2[5]), .B(c2[4]), .Cin(s1[9]), .S(s3[4]), .Cout(c3[4]));
+    full_adder  Stage3_FA_5 (.A(s2[6]), .B(c2[5]), .Cin(s0[15]), .S(s3[5]), .Cout(c3[5]));
+    full_adder  Stage3_HA_6 (.A(s2[7]), .B(c2[6]), .Cin(1'b0), .S(s3[6]), .Cout(c3[6]));
+    full_adder  Stage3_HA_7 (.A(s2[8]), .B(c2[7]), .Cin(1'b0), .S(s3[7]), .Cout(c3[7]));
+    full_adder  Stage3_HA_8 (.A(s2[9]), .B(c2[8]), .Cin(1'b0), .S(s3[8]), .Cout(c3[8]));
+    full_adder  Stage3_FA_9 (.A(s0[20]), .B(c0[19]), .Cin(c2[9]), .S(s3[9]), .Cout(c3[9]));
+    full_adder  Stage3_HA_10 (.A(c0[20]), .B(p[7][7]), .Cin(1'b0), .S(s3[10]), .Cout(c3[10]));
 
-                .S(p2[0][i]),  // p2_0_3
-                .Cout   (p2[1][i+1])   // p2_1_4
-            );
-        end
-        for (i = 7; i <= 12; i++) begin: fa_level2_2nd_half
-            full_adder  fa (  // use the first HA at bottom right as an example
-                .A   (p1[3][i]),  // p1_3_7
-                .B   (p1[4][i]),  // p1_4_7
-                .Cin (p1[5][i]),  // p1_5_7
 
-                .S(p2[2][i]),  // p2_2_7
-                .Cout   (p2[3][i+1])   // p2_3_8
-            );
-        end
-    endgenerate
-
-    // REVIEW level 3 generate p3
-    generate
-        // NOTE no adder used
-        assign p3[0][2:0] = p2[0][2:0];
-        assign p3[0][13] = p2[2][13];
-        assign p3[1][14] = p2[2][14];
-        assign p3[2][14:7] = p2[3][14:7];
-        // NOTE 4 HAs
-        for (i = 0; i < 2; i++) begin: ha_level3
-            half_adder  ha_level3_01 ( // example ha_3_0
-                .A (p2[0][i+3]), // p2_0_3
-                .B (p2[1][i+3]), // p2_1_3
-                .S (p3[0][i+3]),  // p3_0_3
-                .Cout    (p3[1][i+4])   // p3_1_4
-            );
-            half_adder  ha_level3_23 ( // example ha_3_2
-                .A (p2[1][i+11]), // p2_1_11
-                .B (p2[2][i+11]), // p2_2_11
-                .S (p3[0][i+11]),  // p3_0_11
-                .Cout    (p3[1][i+12])   // p3_1_12
-            );
-        end
-        // NOTE 6 FAs
-        for (i = 5; i <= 10; i++) begin: fa_level3
-            full_adder  fa (  // use the first HA at the right as an example
-                .A   (p2[0][i]),  // p2_0_5
-                .B   (p2[1][i]),  // p2_1_5
-                .Cin (p2[2][i]),  // p2_2_5
-
-                .S(p3[0][i]),  // p3_0_5
-                .Cout   (p3[1][i+1])   // p3_1_6
-            );
-        end
-    endgenerate
-
-    // REVIEW level 4 generate p4
-    generate
-        // NOTE no adder used
-        assign p4[0][3:0] = p3[0][3:0];
-        // NOTE 4 HAs
-        for (i = 4; i <= 6; i++) begin: ha_level4
-            half_adder  ha_level4_012 ( // example ha_4_0
-                .A (p3[0][i]), // p3_0_4
-                .B (p3[1][i]), // p3_1_4
-                .S (p4[0][i]),  // p4_0_4
-                .Cout    (p4[1][i+1])   // p4_1_5
-            );
-        end
-        half_adder  ha_level4_3 (
-            .A (p3[1][14]), 
-            .B (p3[2][14]), 
-            .S (p4[0][14]),  
-            .Cout    (p4[1][15])   
-        );
-        // NOTE 7 FAs
-        for (i = 7; i <= 13; i++) begin: fa_level4
-            full_adder  fa (  // use the first HA at the right as an example
-                .A   (p3[0][i]),  // p3_0_7
-                .B   (p3[1][i]),  // p3_1_7
-                .Cin (p3[2][i]),  // p3_2_7
-
-                .S(p4[0][i]),  // p4_0_7
-                .Cout   (p4[1][i+1])   // p4_1_8
-            );
-        end
-    endgenerate
 
     // REVIEW generate the final result
-    generate
-        // NOTE filled the ending of p4[1] with 0s
-        assign p4[1][4:0] = 5'b0;
-        assign p4[0][15] = 0;
+    fast_adder #(11)
+    fa (
+        .A   ( {1'b0, s3[10:1]} ),
+        .B   ( c3[10:0] ),
+        .Cin ( 1'b0 ),
 
-        logic carry[16:0];
-        assign carry[0] = 0;
+        .S ( pout[15:5] ),
+        .Cout    ( pout[16] )
+    );
 
-        // OPTION 1
-        // fast_adder #(8)
-        // fa (
-        //     .A   ( p4[0][7:0] ),
-        //     .B   ( p4[1][7:0] ),
-        //     .Cin ( carry[0] ),
 
-        //     .S ( pout[7:0] ),
-        //     .Cout    ( carry[1] )
-        // );
-        // fast_adder #(8)
-        // fa2 (
-        //     .A   ( p4[0][15:8] ),
-        //     .B   ( p4[1][15:8] ),
-        //     .Cin ( carry[1] ),
+    assign o_p = {pout[15:5], s3[0], s2[0], s1[0], s0[0], p[0][0]};
 
-        //     .S ( pout[15:8] ),
-        //     .Cout    ( carry[2] )
-        // );
-
-        // OPTION 2
-        fast_adder #(16)
-        fa (
-            .A   ( p4[0] ),
-            .B   ( p4[1] ),
-            .Cin ( 1'b0 ),
-
-            .S ( pout[15:0] ),
-            .Cout    ( pout[16] )
-        );
-
-        // OPTION 3
-        // for (i = 0; i <= 15; i++) begin: output_fas
-        //     full_adder  fa (  // use the first HA at the right as an example
-        //         .A   (p4[0][i]),  // p4_0_0
-        //         .B   (p4[1][i]),  // p4_1_0
-        //         .Cin (carry[i]),  // carry_0
-
-        //         .S(pout[i]),  // p3_0_7
-        //         .Cout   (carry[i+1])   // p3_1_8
-        //     );
-        // end
-
-    endgenerate
-
-    assign o_p = pout[15:0];
-    
 endmodule
