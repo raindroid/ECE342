@@ -1,0 +1,7 @@
+set_global_assignment -library "vgapll" -name VERILOG_FILE [file join $::quartus(qip_path) "vgapll.v"]
+set_global_assignment -library "vgapll" -name QIP_FILE [file join $::quartus(qip_path) "vgapll.qip"]
+
+set_instance_assignment -name PLL_COMPENSATION_MODE DIRECT -to "*vgapll*|altera_pll:altera_pll_i*|*"
+set_instance_assignment -name PLL_CHANNEL_SPACING "0.0 KHz" -to "*vgapll*|altera_pll:altera_pll_i*|*"
+set_instance_assignment -name PLL_AUTO_RESET OFF -to "*vgapll*|altera_pll:altera_pll_i*|*"
+set_instance_assignment -name PLL_BANDWIDTH_PRESET AUTO -to "*vgapll*|altera_pll:altera_pll_i*|*"
