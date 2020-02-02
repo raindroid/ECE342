@@ -125,25 +125,25 @@ line_drawing_algo  u_line_drawing_algo (
 // Hex Decoders
 hex_decoder h0
 (
-    .hex_digit(x1[3:0]),
+    .hex_digit(y1[3:0]),
     .segments(HEX0)
 );
 
 hex_decoder h1
 (
-    .hex_digit(x1[7:4]),
+    .hex_digit(y1[7:4]),
     .segments(HEX1)
 );
 
 hex_decoder h2
 (
-    .hex_digit(y1[3:0]),
+    .hex_digit(x1[3:0]),
     .segments(HEX2)
 );
 
 hex_decoder h3
 (
-    .hex_digit(y1[7:4]),
+    .hex_digit(x1[7:4]),
     .segments(HEX3)
 );
 
