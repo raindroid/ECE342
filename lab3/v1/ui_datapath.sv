@@ -25,10 +25,10 @@ module ui_datapath (
     reg_n #(3) color_reg(clk, reset, i_set_col, i_val[2:0], o_color);
 
     // NOTE output XY are  trigerred by updateXY signal
-    reg_n #(9) outX0_reg(clk, reset, i_updateXY, tempX, o_x0);
-    reg_n #(9) outX1_reg(clk, reset, i_updateXY, o_x0, o_x1);
-    reg_n #(8) outY0_reg(clk, reset, i_updateXY, tempY, o_y0);
-    reg_n #(8) outY1_reg(clk, reset, i_updateXY, o_y0, o_y1);
+    reg_n #(9) outX1_reg(clk, reset, i_updateXY, tempX, o_x1);
+    reg_n #(9) outX0_reg(clk, reset, i_updateXY, o_x1, o_x0);
+    reg_n #(8) outY1_reg(clk, reset, i_updateXY, tempY, o_y1);
+    reg_n #(8) outY0_reg(clk, reset, i_updateXY, o_y1, o_y0);
 
     
 endmodule

@@ -75,4 +75,88 @@ end
 // PUT YOUR UI AND LDA MODULE INSTANTIATIONS HERE
 //
 
+
+logic setX, setY, set_col, go;
+logic [8:0] val;
+
+assign val = SW[8:0];
+assign {go, set_col, setY, setX} = ~KEY;
+
+logic done, start;
+logic [2:0] color;
+logic [8:0] x0, x1;
+logic [7:0] y0, y1;
+
+user_interface  u_user_interface (
+    .clk          (CLOCK_50),
+    .reset        (reset | SW[9]  ),
+    .i_setX       (setX   ),
+    .i_setY       (setY   ),
+    .i_set_col    (set_col),
+    .i_go         (go     ),
+    .i_val        (val    ),
+    .i_done       (done   ),
+
+    .o_start     ( start  ),
+    .o_color     ( color  ),
+    .o_x0        ( x0     ),
+    .o_y0        ( y0     ),
+    .o_x1        ( x1     ),
+    .o_y1        ( y1     )
+);
+
+line_drawing_algo  u_line_drawing_algo (
+    .clk                     ( CLOCK_50     ),
+    .reset                   ( reset    | SW[9]    ),
+    .i_start                 ( start        ),
+    .i_x0                    ( x0     [8:0] ),
+    .i_y0                    ( y0     [7:0] ),
+    .i_x1                    ( x1     [8:0] ),
+    .i_y1                    ( y1     [7:0] ),
+    .i_color                 ( color  [2:0] ),
+
+    .o_x                     ( vga_x            ),
+    .o_y                     ( vga_y           ),
+    .o_plot                  ( vga_plot         ),
+    .o_color                 ( vga_color       ),
+    .o_done                  ( done       )
+);
+
+// Hex Decoders
+hex_decoder h0
+(
+    .hex_digit(x1[3:0]),
+    .segments(HEX0)
+);
+
+hex_decoder h1
+(
+    .hex_digit(x1[7:4]),
+    .segments(HEX1)
+);
+
+hex_decoder h2
+(
+    .hex_digit(y1[3:0]),
+    .segments(HEX2)
+);
+
+hex_decoder h3
+(
+    .hex_digit(y1[7:4]),
+    .segments(HEX3)
+);
+
+hex_decoder h4
+(
+    .hex_digit(val[3:0]),
+    .segments(HEX4)
+);
+
+hex_decoder h5
+(
+    .hex_digit(val[7:4]),
+    .segments(HEX5)
+);
+
 endmodule

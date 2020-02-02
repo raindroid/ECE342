@@ -12,7 +12,7 @@ module reg_n #
 );
 	always_ff @(posedge i_clk) begin
 		if (i_reset) o_data <= '0;
-		if(i_en) o_data <= i_in;
+		else if(i_en) o_data <= i_in;
 	end
 
 endmodule

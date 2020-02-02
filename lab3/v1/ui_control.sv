@@ -33,7 +33,12 @@ module ui_control (
         case(state)
             S_Start:    // NOTE wait for i_go to be pressed
             begin
-                next_state = i_go ? S_Waiting_key_release : S_Start;
+                next_state = i_go ? S_UpdateXY : S_Start;
+            end
+            S_UpdateXY:     // NOTE update XY
+            begin
+                o_updateXY = 1;
+                next_state = S_Waiting_key_release;
             end
             S_Waiting_key_release:     // NOTE wait for i_go to be released
             begin
@@ -46,12 +51,7 @@ module ui_control (
             end
             S_Waiting_draw: // NOTE wait for drawing done
             begin
-                next_state = i_done ? S_UpdateXY : S_Waiting_draw;
-            end
-            S_UpdateXY:     // NOTE update XY
-            begin
-                o_updateXY = 1;
-                next_state = S_Start;
+                next_state = i_done ? S_Start : S_Waiting_draw;
             end
 
         endcase
