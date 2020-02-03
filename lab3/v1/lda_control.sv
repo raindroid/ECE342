@@ -40,7 +40,7 @@ module lda_control (
             S_Start: // NOTE wait for draw signal and clear reg in datapath
             begin
                 o_data_reset = 1;
-                if (i_start) next_state = S_Start_draw;
+                next_state = (i_start) ? S_Start_draw : S_Start;
             end
             // S_Clear: // NOTE clear the cavas (draw all pixels to black)  NOT REQUIRED !!!!!!!
             // begin

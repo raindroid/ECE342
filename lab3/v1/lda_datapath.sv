@@ -69,7 +69,6 @@ module lda_datapath (
     // NOTE set up local vars, extra bit for the sign
     wire signed [9:0] deltaX = draw_x1 - draw_x0;
     wire signed [9:0] deltaY = (draw_y1 - draw_y0) * (((draw_y1 > draw_y0) << 1) - 1); // <=> abs(y1 - y0)
-    wire signed [1:0] y_step = draw_y0 < draw_y1;
 
     logic [8:0] loop_x, loop_y;
     reg signed [9:0] error;
