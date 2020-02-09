@@ -1,0 +1,25 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate "C:\Users\Qihan Liu\ECE342\lab4\starter\lab4part1.qsys" --block-symbol-file --output-directory="C:\Users\Qihan Liu\ECE342\TutQsys\light\nios_system" --family="Cyclone V" --part=5CSEMA5F31C6
+Progress: Loading starter/lab4part1.qsys
+Progress: Reading input file
+Progress: Adding LEDs [altera_avalon_pio 18.1]
+Progress: Parameterizing module LEDs
+Progress: Adding clk_0 [clock_source 18.1]
+Progress: Parameterizing module clk_0
+Progress: Adding jtag_uart_0 [altera_avalon_jtag_uart 18.1]
+Progress: Parameterizing module jtag_uart_0
+Progress: Adding nios2_qsys_0 [altera_nios2_qsys 16.1]
+Progress: Parameterizing module nios2_qsys_0
+Progress: Adding onchip_memory2_0 [altera_avalon_onchip_memory2 18.1]
+Progress: Parameterizing module onchip_memory2_0
+Progress: Adding switches [altera_avalon_pio 18.1]
+Progress: Parameterizing module switches
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: lab4part1.jtag_uart_0: JTAG UART IP input clock need to be at least double (2x) the operating frequency of JTAG TCK on board
+Warning: lab4part1.nios2_qsys_0: Nios II Classic cores are no longer recommended for new projects
+Info: lab4part1.switches: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: qsys-generate succeeded.
+Info: Stopping: Create block symbol file (.bsf)
