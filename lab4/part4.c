@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <math.h>
 
 void swap(int* x, int* y);
 void plot_pixel(int x, int y, short int line_color);
@@ -28,7 +29,7 @@ unsigned line_colour = colour_bit;
 
 int main(void)
 {
-    volatile int * pixel_ctrl_ptr = (int *)0xFF203020; //REVIEW agine, not sure whether we need this
+    volatile int * pixel_ctrl_ptr = (int *)0xFF203020; //REVIEW again, not sure whether we need this
     /* Read location of the pixel buffer from the pixel buffer controller */
     pixel_buffer_start = *pixel_ctrl_ptr;
 
@@ -47,7 +48,7 @@ int main(void)
     }
 
     while (wait_for_vsync()) {
-        draw_line(0, lastY, 335, lastY, 0);
+        draw_line(0, lastY, 335, lastY, 0); //erase last line drew
         draw_line(0, y, 335, y, line_colour);
         lastY = y;
         y+=dy;

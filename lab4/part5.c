@@ -1,39 +1,58 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <math.h>
 
 void swap(int* x, int* y);
 void plot_pixel(int x, int y, short int line_color);
 void draw_line(int x0,int y0,int x1,int y1, short int line_color);
 void clear_screen();
-bool wait_for_vsync();
+bool wait_for_vsync(); //REVIEW 243的 不知道要不要
 
-volatile int pixel_buffer_start; // global variable
-volatile int *SW_ptr = (int *) 0xFF200040;
+volatile int pixel_buffer_start; // REVIEW 同样 243敲来的 不知道需不需要
+volatile int *SW_ptr = (int *) 0xFF200040; // REVIEW sw是用这个地址吗？
 
+//REVIEW 这个是handout上的地址？不知道是哪个
+//volatile int *mode = (int *) 0x00700000;
+//volatile int *line_colour = (int *) 0x00700014;
+
+//REVIEW 这里SW_ptr不知道为什么报错
+unsigned SW_value = (unsigned int) *SW_ptr;// read SW value
+
+//REVIEW 以下不确定
+unsigned up = (SW_value & 0b1) << 0b1101; //sw_value and with 1 then shift left by 9 bits to get sw0.
+unsigned mode = ((SW_value >> 1) & 0b1) << 0b1100; //sw_value shift right by 1 and with 1 then shift left by 8 bits to get sw1.
+unsigned colour_bit = ((SW_value >> 2) & 0b111) << 0b0101; //sw_value shift right by 2 and with 111 then shift left by 5 bits to get sw234.
+
+//TODO  颜色怎么用colour_bit determine啊 
+unsigned line_colour = colour_bit;
 
 int main(void)
 {
-    volatile int * pixel_ctrl_ptr = (int *)0xFF203020;
-    // declare other variables(not shown)
-    // initialize location and direction of rectangles(not shown)
+    volatile int * pixel_ctrl_ptr = (int *)0xFF203020; //REVIEW again, not sure whether we need this
+    /* Read location of the pixel buffer from the pixel buffer controller */
+    pixel_buffer_start = *pixel_ctrl_ptr;
 
-    /* set front pixel buffer to start of FPGA On-chip memory */
-    *(pixel_ctrl_ptr + 1) = 0xC8000000; // first store the address in the
-    // back buffer
-    /* now, swap the front/back buffers, to set the front buffer location */
-    wait_for_vsync();
-    /* initialize a pointer to the pixel buffer, used by drawing functions */
-    pixel_buffer_start = *pixel_ctrl_ptr; //read the address: 0xC8000000
-    clear_screen(); // pixel_buffer_start points to the pixel buffer
-    /* set back pixel buffer to start of SDRAM memory */
-    *(pixel_ctrl_ptr + 1) = 0xC0000000;
-    pixel_buffer_start = *(pixel_ctrl_ptr + 1); // we draw on the back buffer
+    clear_screen();
 
+//REVIEW 以下，不确定
+    int last_x = 0;
+    int last_y = 0;
+
+    while (wait_for_vsync()) {
+        int i = 0;
+        x = 20*cos(i) + 168;
+        y = 20*sin(i) + 105; 
+        draw_line(168, 105, last_x, last_y, 0); //erase last line drew
+        draw_line(168, 105, x, y, colour_bit); //TODO 这里应该错了，不知道怎么写
+        last_x = x;
+        last_y = y;
+
+        x += 0.1;
+        y += 0.1;
+    }
 }
 
-
-// code not shown for clear_screen() and draw_line() subroutines
 void draw_line(int x0,int y0,int x1,int y1, short int line_color){
     bool is_steep = abs(y1-y0) >abs(x1-x0);
     if(is_steep){ // if steep -> swap x,y
@@ -71,8 +90,8 @@ void draw_line(int x0,int y0,int x1,int y1, short int line_color){
 }
 
 void clear_screen(){
-    for(int y = 0;y<240;y++){
-        for(int x = 0; x<320;x++){
+    for(int y = 0;y<210;y++){
+        for(int x = 0; x<336;x++){
             plot_pixel(x,y,0);
         }
     }
@@ -85,7 +104,7 @@ void swap(int* x, int* y) {
 }
 
 
-// QVGA: 320x240
+//REVIEW 以前screen size是320x240 所以y shift 10，x shift 1. 这个lab是336x210 不知道shift多少
 void plot_pixel(int x, int y, short int line_color)
 {
     *(short int *)(pixel_buffer_start + (y << 10) + (x << 1)) = line_color;
@@ -95,7 +114,7 @@ bool wait_for_vsync(){
     volatile int * pixel_ctrl_ptr = (int *)0xFF203020; // pixel controller
     register int status; //status register
 
-    *pixel_ctrl_ptr =1; //change bw front & back buffer
+    *pixel_ctrl_ptr =1;
     status = *(pixel_ctrl_ptr+3); //+3: status register
 
     //not done drawing: 1&1 = 1
