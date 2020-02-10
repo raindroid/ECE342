@@ -6,33 +6,54 @@ void swap(int* x, int* y);
 void plot_pixel(int x, int y, short int line_color);
 void draw_line(int x0,int y0,int x1,int y1, short int line_color);
 void clear_screen();
-bool wait_for_vsync();
+bool wait_for_vsync(); //REVIEW 243的 不知道要不要
 
-volatile int pixel_buffer_start; // global variable
-volatile int *SW_ptr = (int *) 0xFF200040;
+volatile int pixel_buffer_start; // REVIEW 同样 243敲来的 不知道需不需要
+volatile int *SW_ptr = (int *) 0xFF200040; // REVIEW sw是用这个地址吗？
 
-volatile int *mode = (int *) 0x00700000;
-volatile int *line_colour = (int *) 0x00700014;
+//REVIEW 这个是handout上的地址？不知道是哪个
+//volatile int *mode = (int *) 0x00700000;
+//volatile int *line_colour = (int *) 0x00700014;
 
+//REVIEW 这里SW_ptr不知道为什么报错
 unsigned SW_value = (unsigned int) *SW_ptr;// read SW value
-unsigned up = SW_value & 0000000001; //determine the direction of the line
+
+//REVIEW 以下不确定
+unsigned up = (SW_value & 1) << 9; //sw0 used to determine the direction of the line
+unsigned mode = ((SW_value >> 1) & 1) << 9; //sw1 used to determine the mode
+unsigned colour_bit = ((SW_value >> 2) & 111) << 5; //sw234 used to determine the colour
+
+//TODO  颜色怎么用colour_bit determine啊 
+unsigned line_colour = colour_bit;
 
 int main(void)
 {
-    volatile int * pixel_ctrl_ptr = (int *)0xFF203020;
+    volatile int * pixel_ctrl_ptr = (int *)0xFF203020; //REVIEW agine, not sure whether we need this
     /* Read location of the pixel buffer from the pixel buffer controller */
     pixel_buffer_start = *pixel_ctrl_ptr;
 
     clear_screen();
-    int y =0;
-    int dy = 1;
+
     int lastY = 0;
+    int y,dy;
+
+//REVIEW see if goes up or goes down
+    if(up) {
+        y = 209;
+        dy = -1;
+    } else{
+        y =0;
+        dy = 1;
+    }
+
     while (wait_for_vsync()) {
         draw_line(0, lastY, 335, lastY, 0);
         draw_line(0, y, 335, y, line_colour);
         lastY = y;
         y+=dy;
-        if(y==210){
+
+        //REVIEW screen size 336x210
+        if(y==210){ //bounce if touches bottom
             y=209;
             dy*=-1;
         }
@@ -95,7 +116,7 @@ void swap(int* x, int* y) {
 }
 
 
-// QVGA: 320x240
+//REVIEW 以前screen size是320x240 所以y shift 10，x shift 1. 这个lab是336x210 不知道shift多少
 void plot_pixel(int x, int y, short int line_color)
 {
     *(short int *)(pixel_buffer_start + (y << 10) + (x << 1)) = line_color;
