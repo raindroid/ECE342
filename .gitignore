@@ -15,3 +15,6 @@ sc_dpiheader.h
 vsim.dbg
 
 output_files/
+*.o
+*.elf
+*.srec

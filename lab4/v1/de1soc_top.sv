@@ -50,9 +50,17 @@ end
 
     nios_system NiosII (
         .clk_clk(CLOCK_50),         //      clk.clk
-        .leds_export(LEDR),     //     leds.export
-        .reset_reset_n(KEY),   //    reset.reset_n
-        .switches_export(SW)  // switches.export
+        .leds_export(LEDR[7:0]),     //     leds.export
+        .reset_reset_n(KEY[0:0]),   //    reset.reset_n
+        .switches_export(SW[7:0]),  // switches.export
+		.lda_vga_b_export       (VGA_B),       //       lda_vga_b.export
+		.lda_vga_blank_n_export (VGA_BLANK_N), // lda_vga_blank_n.export
+		.lda_vga_clk_export     (VGA_CLK),     //     lda_vga_clk.export
+		.lda_vga_g_export       (VGA_G),       //       lda_vga_g.export
+		.lda_vga_hs_export      (VGA_HS),      //      lda_vga_hs.export
+		.lda_vga_r_export       (VGA_R),       //       lda_vga_r.export
+		.lda_vga_sync_n_export  (VGA_SYNC_N),  //  lda_vga_sync_n.export
+		.lda_vga_vs_export      (VGA_VS)       //      lda_vga_vs.export
     );
 
 
