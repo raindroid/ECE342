@@ -54,12 +54,11 @@ int main(void)
         y+=dy;
 
         //REVIEW screen size 336x210
-        if(y==210){ //bounce if touches bottom
-            y=209;
-            dy*=-1;
-        }
-        if(y==-1){
+        if(!up && y==210){ //wrap around tothe other end and continue moving
             y=0;
+        }
+        if(up && y==-1){
+            y=209;
             dy*=-1;
         }
 
