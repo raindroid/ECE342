@@ -37,18 +37,20 @@ module avalon_slave_controller (
     logic [31:0] s_reg_map [7:0];   // in case over flow
     logic waiting;
     logic status_update, status;
+    logic drawing;
     logic idle;
 
     // NOTE connect inputs
-    assign s_readdata = (~s_read) ? 32'b0 : s_reg_map[s_address];
+    assign s_readdata = s_reg_map[s_address];
     
     // NOTE connect outputs
-    assign s_waitrequest = waiting;
+    assign s_waitrequest = (drawing || s_go) && (s_mode == MODE_STALL);
     assign o_x0 = s_x0;
     assign o_y0 = s_y0;
     assign o_x1 = s_x1;
     assign o_y1 = s_y1;
     assign o_color = s_color;
+    // assign o_start = s_go;
 
     reg_n #(32) reg_mode (
         .i_clk(clk), 
@@ -61,8 +63,8 @@ module avalon_slave_controller (
     reg_n #(32) reg_status (
         .i_clk(clk), 
         .i_reset(reset), 
-        .i_en(status_update), 
-        .i_in(status & 32'b1), 
+        .i_en(1'b1), 
+        .i_in(drawing & 32'b1), 
         .o_data(s_reg_map[address_status_res]));
     assign s_status = s_reg_map[address_status_res][0];
     
@@ -74,11 +76,18 @@ module avalon_slave_controller (
         .o_data(s_reg_map[address_go_reg]));
     assign s_go = ~s_reg_map[address_go_reg][0] && (s_address==address_go_reg && s_write);
 
+    reg_n #(32) reg_start (    // NOTE extend the go pulse to 1 cycle
+        .i_clk(clk), 
+        .i_reset(reset), 
+        .i_en(1'b1), 
+        .i_in(s_go), 
+        .o_data(o_start));
+
     reg_n #(32) reg_line_start (
         .i_clk(clk), 
         .i_reset(reset), 
-        .i_en(s_address==address_line_start && s_write && (~waiting)), 
-        .i_in(s_readdata & 32'h1_ffff),   // select last 17 bits 
+        .i_en(s_address==address_line_start && s_write), 
+        .i_in(s_writedata & 32'h1_ffff),   // select last 17 bits 
         .o_data(s_reg_map[address_line_start]));
     assign s_x0 = s_reg_map[address_line_start][8:0];
     assign s_y0 = s_reg_map[address_line_start][16:9];
@@ -86,8 +95,8 @@ module avalon_slave_controller (
     reg_n #(32) reg_line_end (
         .i_clk(clk), 
         .i_reset(reset), 
-        .i_en(s_address==address_line_end && s_write && (~waiting)), 
-        .i_in(s_readdata & 32'h1_ffff),   // select last 17 bits 
+        .i_en(s_address==address_line_end && s_write), 
+        .i_in(s_writedata & 32'h1_ffff),   // select last 17 bits 
         .o_data(s_reg_map[address_line_end]));
     assign s_x1 = s_reg_map[address_line_end][8:0];
     assign s_y1 = s_reg_map[address_line_end][16:9];
@@ -95,8 +104,8 @@ module avalon_slave_controller (
     reg_n #(32) reg_color (
         .i_clk(clk), 
         .i_reset(reset), 
-        .i_en(s_address==address_line_color && s_write && (~waiting)), 
-        .i_in(s_readdata & 32'b111),   // select last 3 bits
+        .i_en(s_address==address_line_color && s_write), 
+        .i_in(s_writedata & 32'b111),   // select last 3 bits
         .o_data(s_reg_map[address_line_color]));
     assign s_color = s_reg_map[address_line_color][2:0];
 
@@ -104,67 +113,74 @@ module avalon_slave_controller (
     assign s_reg_map[6] = 32'b0;
     assign s_reg_map[7] = 32'b0;
 
-    // NOTE Wait control (STALL MODE)
-    enum int unsigned {
-        S_Start,
-        S_Write,
-        S_Draw_Poll,
-        S_Draw_Stall
-    } state, next_state;
-    
-    always_ff @ (posedge clk or posedge reset) begin
-        if (reset) state <= S_Start;
-        else state <= next_state;
+    always_ff @(posedge clk) begin
+        if (reset) drawing = 1'b0;
+        else if (s_go) drawing = 1'b1;
+        else if (i_done) drawing = 1'b0;
     end
 
-    always_comb begin
-        next_state = state;
-        o_start = 0;
-        waiting = 0;
-        status_update = 0;
-        status = 0;
-        idle = 0;
-        case(state)
-            S_Start:
-            begin
-                idle = 1;
-                if (s_write && s_mode == MODE_STALL) begin
-                    next_state = S_Write;
-                    waiting = 1;
-                end
-                if (s_go == 1 && s_mode == MODE_STALL) begin
-                    next_state = S_Draw_Stall;
-                    waiting = 1;
-                    o_start = 1;
-                end
-                else if (s_go == 1 && s_mode == MODE_POLL) begin
-                    next_state = S_Draw_Poll;
-                    status_update = 1;
-                    status = 1;
-                    o_start = 1;
-                end
-            end
-            S_Write:
-            begin
-                if (~s_write) next_state = S_Start;
-            end
-            S_Draw_Poll:
-            begin
-                if (i_done) begin
-                    next_state = S_Start;
-                    status_update = 1;
-                end
-            end
-            S_Draw_Stall:
-            begin
-                waiting = 1;
-                if (i_done) begin
-                    next_state = S_Start;
-                    waiting = 0;
-                end
-            end
-        endcase
-    end
+
+    // NOTE Wait control (STALL MODE)
+    // enum int unsigned {
+    //     S_Start,
+    //     S_Write,
+    //     S_Draw_Poll,
+    //     S_Draw_Stall
+    // } state, next_state;
+    
+    // always_ff @ (posedge clk or posedge reset) begin
+    //     if (reset) state <= S_Start;
+    //     else state <= next_state;
+    // end
+
+    // always_comb begin
+    //     next_state = state;
+    //     o_start = 0;
+    //     waiting = 0;
+    //     status_update = 0;
+    //     status = 0;
+    //     idle = 0;
+    //     case(state)
+    //         S_Start:
+    //         begin
+    //             idle = 1;
+    //             // if (s_write && s_mode == MODE_STALL) begin
+    //             //     next_state = S_Write;
+    //             //     waiting = 1;
+    //             // end
+    //             if (s_go == 1 && s_mode == MODE_STALL) begin
+    //                 next_state = S_Draw_Stall;
+    //                 waiting = 1;
+    //                 o_start = 1;
+    //             end
+    //             else if (s_go == 1 && s_mode == MODE_POLL) begin
+    //                 next_state = S_Draw_Poll;
+    //                 status_update = 1;
+    //                 status = 1;
+    //                 o_start = 1;
+    //             end
+    //         end
+    //         S_Write:
+    //         begin
+    //             if (~s_write) next_state = S_Start;
+    //         end
+    //         S_Draw_Poll:
+    //         begin
+    //             if (i_done) begin
+    //                 next_state = S_Start;
+    //                 status_update = 1;
+    //             end
+    //         end
+    //         S_Draw_Stall:
+    //         begin
+    //             waiting = 1;
+    //             if (i_done) begin
+    //                 next_state = S_Start;
+    //                 waiting = 0;
+    //             end
+    //         end
+    //     endcase
+    // end
 
     
 endmodule

@@ -65,6 +65,12 @@ begin
     s_writedata = 1;
     s_write = 1;
     #10;
+    
+    s_address = 3'b100;
+    s_writedata = 32'b0111111_011111111;
+    s_write = 1;
+    #10;
+
     s_write = 0;
     #10;
     s_address = 3'b011;
@@ -82,8 +88,26 @@ begin
     #100;
     s_write = 0;
     #10;
-    i_done = 0;
+
+    
+    s_address = 3'b0;
+    s_writedata = 0;
+    s_write = 1;
+    #10;
+    s_write = 0;
+    #10;
+    
+    s_address = 3'b010;
+    s_writedata = 0;
+    s_write = 1;
     #100;
+    s_write = 0;
+    
+    i_done = 1;
+    #10;
+    
+    i_done = 0;
+    #20;
     $stop;
 end
 

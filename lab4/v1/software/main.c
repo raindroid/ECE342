@@ -26,11 +26,11 @@ int main() {
     x0 = 1;
     y0 = 1;
 
-    x1 = 235;
+    x1 = 335;
     y1 = 209;
 
-    *(volatile __uint32_t *)LDA_line_s_reg = 0x0001a34f;
-    *(volatile __uint32_t *)LDA_line_e_reg = 0x0000004f;
+    *(volatile int *)LDA_line_s_reg = (y0 << 9) | x0;
+    *(volatile int *)LDA_line_e_reg = (y1 << 9) | x1;
     LDA_color_reg = 0b011;
 
     LDA_go_reg = 1;

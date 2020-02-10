@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><intel_fpga_monitor_program_project version="1.0">
     <architecture>Nios II</architecture>
     <system>
-        <system_info filepath="true">nios_system.sopcinfo</system_info>
-        <system_sof filepath="true">out/de1soc.sof</system_sof>
+        <system_info filepath="true">../nios_system.sopcinfo</system_info>
+        <system_sof filepath="true">../out/de1soc.sof</system_sof>
         <board>DE1-SoC</board>
         <cable>DE-SoC [USB-1]</cable>
         <processor>nios2</processor>
@@ -12,11 +12,14 @@
     <program>
         <type>C Program</type>
         <source_files>
-            <source_file filepath="true">line_test.c</source_file>
+            <source_file filepath="true">funcs.c</source_file>
+            <source_file filepath="true">funcs.h</source_file>
+            <source_file filepath="true">main.c</source_file>
+            <source_file filepath="true">part4.c</source_file>
             <source_file filepath="true">amp/lib/src/niosII_jtag_uart.c</source_file>
         </source_files>
         <options>
-            <compiler_flags>-g -O0 -ffunction-sections -fverbose-asm -fno-inline -mno-cache-volatile</compiler_flags>
+            <compiler_flags>-g -O1 -ffunction-sections -fverbose-asm -fno-inline -mno-cache-volatile</compiler_flags>
             <linker_flags>-lm</linker_flags>
             <emulate_unimpl_instructions>true</emulate_unimpl_instructions>
             <use_small_c_library>false</use_small_c_library>
