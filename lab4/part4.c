@@ -19,9 +19,9 @@ volatile int *SW_ptr = (int *) 0xFF200040; // REVIEW sw是用这个地址吗？
 unsigned SW_value = (unsigned int) *SW_ptr;// read SW value
 
 //REVIEW 以下不确定
-unsigned up = (SW_value & 1) << 9; //sw0 used to determine the direction of the line
-unsigned mode = ((SW_value >> 1) & 1) << 9; //sw1 used to determine the mode
-unsigned colour_bit = ((SW_value >> 2) & 111) << 5; //sw234 used to determine the colour
+unsigned up = (SW_value & 0b1) << 0b1101; //sw_value and with 1 then shift left by 9 bits to get sw0.
+unsigned mode = ((SW_value >> 1) & 0b1) << 0b1100; //sw_value shift right by 1 and with 1 then shift left by 8 bits to get sw1.
+unsigned colour_bit = ((SW_value >> 2) & 0b111) << 0b0101; //sw_value shift right by 2 and with 111 then shift left by 5 bits to get sw234.
 
 //TODO  颜色怎么用colour_bit determine啊 
 unsigned line_colour = colour_bit;
@@ -102,8 +102,8 @@ void draw_line(int x0,int y0,int x1,int y1, short int line_color){
 }
 
 void clear_screen(){
-    for(int y = 0;y<240;y++){
-        for(int x = 0; x<320;x++){
+    for(int y = 0;y<210;y++){
+        for(int x = 0; x<336;x++){
             plot_pixel(x,y,0);
         }
     }
