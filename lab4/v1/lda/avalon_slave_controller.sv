@@ -64,7 +64,7 @@ module avalon_slave_controller (
         .i_clk(clk), 
         .i_reset(reset), 
         .i_en(1'b1), 
-        .i_in(drawing & 32'b1), 
+        .i_in((drawing || s_go) & 32'b1), 
         .o_data(s_reg_map[address_status_res]));
     assign s_status = s_reg_map[address_status_res][0];
     

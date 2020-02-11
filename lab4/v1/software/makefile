@@ -16,9 +16,9 @@ OC		:= nios2-elf-objcopy
 RM		:= rm -f
 
 # Flags
-USERCCFLAGS	:= -g -O0 -ffunction-sections -fverbose-asm -fno-inline -mno-cache-volatile -std=c11
+USERCCFLAGS	:= -g -O1 -ffunction-sections -fverbose-asm -fno-inline -mno-cache-volatile
 ARCHASFLAGS	:= -mfloat-abi=softfp --gstabs -I "C:/intelFPGA_lite/18.1/nios2eds/components/altera_nios2/sdk/inc/"
-ARCHCCFLAGS	:=  -mhw-mul -mno-hw-div -I "C:/intelFPGA_lite/18.1/nios2eds/components/altera_nios2/HAL/inc/" -DSYSTEM_BUS_WIDTH=32 -DALT_SINGLE_THREADED -D_JTAG_UART_BASE=69664u
+ARCHCCFLAGS	:= -mhw-mul -mno-hw-div -I "C:/intelFPGA_lite/18.1/nios2eds/components/altera_nios2/HAL/inc/" -DSYSTEM_BUS_WIDTH=32 -DALT_SINGLE_THREADED -D_JTAG_UART_BASE=69664u
 ARCHLDFLAGS	:= --defsym nasys_stack_top=0xe000 --defsym nasys_program_mem=0x0 --defsym nasys_data_mem=0x0
 ARCHLDSCRIPT	:= --script="C:/intelFPGA_lite/18.1/University_Program/Monitor_Program/build/nios_cpp_build.ld"
 ASFLAGS		:= $(ARCHASFLAGS)
@@ -27,8 +27,8 @@ LDFLAGS		:= $(patsubst %, -Wl$(DEFINE_COMMA)%, $(ARCHLDFLAGS)) $(patsubst %, -Wl
 OCFLAGS		:= -O srec
 
 # Files
-HDRS		:= parts.h funcs.h 
-SRCS		:= main.c funcs.c part4.c amp/lib/src/niosII_jtag_uart.c
+HDRS		:= funcs.h HistoryManager.h parts.h Math.h
+SRCS		:= main.c funcs.c part4.c amp/lib/src/niosII_jtag_uart.c HistoryManager.c part5.c
 OBJS		:= $(patsubst %, %.o, $(SRCS))
 
 # Targets
@@ -40,7 +40,7 @@ main.srec: main.elf
 
 main.elf: $(OBJS)
 	$(RM) $@
-	$(CC) $(LDFLAGS) $(OBJS) -o $@ -lm
+	$(CC) $(LDFLAGS) $(OBJS) -o $@
 
 %.c.o: %.c $(HDRS)
 	$(RM) $@
