@@ -12,11 +12,12 @@
     <program>
         <type>C Program</type>
         <source_files>
-            <source_file filepath="true">funcs.c</source_file>
-            <source_file filepath="true">funcs.h</source_file>
             <source_file filepath="true">main.c</source_file>
-            <source_file filepath="true">part4.c</source_file>
             <source_file filepath="true">amp/lib/src/niosII_jtag_uart.c</source_file>
+            <source_file filepath="true">HistoryManager.c</source_file>
+            <source_file filepath="true">funcs.c</source_file>
+            <source_file filepath="true">part4.c</source_file>
+            <source_file filepath="true">part5.c</source_file>
         </source_files>
         <options>
             <compiler_flags>-g -O1 -ffunction-sections -fverbose-asm -fno-inline -mno-cache-volatile</compiler_flags>

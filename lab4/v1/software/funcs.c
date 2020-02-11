@@ -47,5 +47,5 @@ void draw_line_xy(int x0, int y0, int x1, int y1, int color) {
 void wait_for_vsync() {
     // NOTE there is no such function, so we simulate with a useless slow for loop
     int cnt = 1;
-    while(cnt < 50000) cnt++;
+    while(cnt < 32000) cnt++;
 }

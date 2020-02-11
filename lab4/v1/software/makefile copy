@@ -27,8 +27,8 @@ LDFLAGS		:= $(patsubst %, -Wl$(DEFINE_COMMA)%, $(ARCHLDFLAGS)) $(patsubst %, -Wl
 OCFLAGS		:= -O srec
 
 # Files
-HDRS		:= funcs.h HistoryManager.h parts.h Math.h
-SRCS		:= main.c funcs.c part4.c amp/lib/src/niosII_jtag_uart.c HistoryManager.c Math.c Math.h
+HDRS		:= funcs.h HistoryManager.h parts.h
+SRCS		:= main.c amp/lib/src/niosII_jtag_uart.c HistoryManager.c funcs.c part4.c part5.c
 OBJS		:= $(patsubst %, %.o, $(SRCS))
 
 # Targets
@@ -40,7 +40,7 @@ main.srec: main.elf
 
 main.elf: $(OBJS)
 	$(RM) $@
-	$(CC) $(LDFLAGS) $(OBJS) -o $@ -lm
+	$(CC) $(LDFLAGS) $(OBJS) -o $@
 
 %.c.o: %.c $(HDRS)
 	$(RM) $@

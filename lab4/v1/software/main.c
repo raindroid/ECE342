@@ -2,7 +2,6 @@
 #include <string.h>
 #include "HistoryManager.h"
 #include "parts.h"
-#include "Math.h"
 
 int main() {
 
