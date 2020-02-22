@@ -11,7 +11,7 @@ jz loopend	// if it is, goto loopend
 subi r0, 1	// otherwise, subtract 1 from counter
 j .0b		// ... and go back to top of loop
 
-loopend:		// store r1 to address 0x1000
+loopend:		// store r1 to address 0x1000 
 mvi r0, 0x00
 mvhi r0, 0x10
 st r1, r0
