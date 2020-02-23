@@ -3,8 +3,8 @@ module tb();
 // Change this to use a different program!
 // localparam HEX_FILE = "sum10.hex";
 // localparam HEX_FILE = "capital.hex";
-localparam HEX_FILE = "regjump.hex";
-// localparam HEX_FILE = "test.hex";
+// localparam HEX_FILE = "regjump.hex";
+localparam HEX_FILE = "test.hex";
 
 // Create a 100MHz clock
 logic clk;

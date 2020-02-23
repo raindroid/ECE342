@@ -11,3 +11,4 @@ add wave -group cpu -color #ae52d4 -hex /tb/dut/GPR_data
 
 
 run 300000ps
+#run 300ps
