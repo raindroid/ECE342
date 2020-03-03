@@ -1,4 +1,4 @@
-//REVIEW  CPU moduls
+//REVIEW  CPU modules
 
 module cpu (
     input clk,
