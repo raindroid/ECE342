@@ -18,3 +18,5 @@ output_files/
 *.o
 *.elf
 *.srec
+
+.vscode
