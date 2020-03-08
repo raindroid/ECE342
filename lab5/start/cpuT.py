@@ -156,6 +156,7 @@ def generate_cpu_comb():
     res = """
     always_comb begin
         next_state = state;
+        SELECT = sel_PC;
         {GPR_in, GPR_hin, PC_in, PC_incr, A_in, G_in, IR_in, ADDR_in, DOUT_in, RD, WR, ADD_SUB, PC_offset}  = '0;
         
 """

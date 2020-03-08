@@ -31,6 +31,16 @@ module de1soc_top
     output                      VGA_VS
 );
 
+part1 #(
+    .HEX_FILE ( "mem.hex" ))
+ u_part1 (
+    .clk                     ( CLOCK_50           ),
+    .reset                   ( ~KEY[0]        ),
+    .i_SW                    ( SW),
+
+    .o_LEDR                  ( LEDR )
+);
+
 
 
 

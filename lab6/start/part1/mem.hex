@@ -1,0 +1,7 @@
+0030	// 0000: mvi r1, 0x0
+2036	// 0002: mvhi r1, 0x20 # switches address
+0050	// 0004: mvi r2, 0x0
+3056	// 0006: mvhi r2, 0x30 # LED address
+0104	// 0008: ld r0, r1
+0205	// 000a: st r0, r2
+ffb8	// 000c: j -0x3

@@ -1,0 +1,14 @@
+DEPTH = 7;
+WIDTH = 16;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+CONTENT
+BEGIN
+0000 : 0030;	-- mvi r1, 0x0
+0001 : 2036;	-- mvhi r1, 0x20 # switches address
+0002 : 0050;	-- mvi r2, 0x0
+0003 : 3056;	-- mvhi r2, 0x30 # LED address
+0004 : 0104;	-- ld r0, r1
+0005 : 0205;	-- st r0, r2
+0006 : ffb8;	-- j -0x3
+END;
