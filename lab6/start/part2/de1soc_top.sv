@@ -43,5 +43,18 @@ always_ff @ (posedge CLOCK_50) begin
 	reset_reg <= {1'b1, reset_reg[1]};
 end
 
+    logic [9:0] test;
+	processor u0 (
+		.clk_clk          (CLOCK_50),          //       clk.clk
+		.reset_reset_n    (reset_n & KEY[0]),    //     reset.reset_n
+		.sw_i_export      (SW),      //      sw_i.export
+		.led_o_export     (LEDR),     //     led_o.export
+		.quad_hex3_export (HEX3), // quad_hex3.export
+		.quad_hex2_export (HEX2), // quad_hex2.export
+		.quad_hex1_export (HEX1), // quad_hex1.export
+		.quad_hex0_export (HEX0)  // quad_hex0.export
+	);
+
+
 
 endmodule

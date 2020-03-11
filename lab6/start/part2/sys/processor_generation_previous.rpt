@@ -1,0 +1,96 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate F:\UofT\ECE342\Labs\lab6\start\part2\processor.qsys --block-symbol-file --output-directory=F:\UofT\ECE342\Labs\lab6\start\part2\sys --family="Cyclone V" --part=5CSEMA5F31C6
+Progress: Loading part2/processor.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 18.1]
+Progress: Parameterizing module clk_0
+Progress: Adding cpu2_0 [cpu2 1.0]
+Progress: Parameterizing module cpu2_0
+Progress: Adding cpu_0 [cpu 1.0]
+Progress: Parameterizing module cpu_0
+Progress: Adding led_io [altera_avalon_pio 18.1]
+Progress: Parameterizing module led_io
+Progress: Adding onchip_memory2_0 [altera_avalon_onchip_memory2 18.1]
+Progress: Parameterizing module onchip_memory2_0
+Progress: Adding quad_hex_decode_0 [quad_hex_decode 1.0]
+Progress: Parameterizing module quad_hex_decode_0
+Progress: Adding sw_io [altera_avalon_pio 18.1]
+Progress: Parameterizing module sw_io
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: processor.sw_io: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Warning: processor.cpu_0.avalon_master/led_io.s1: Master cpu_0.avalon_master cannot safely write to slave led_io.s1, because the master data width is narrower than the slave data width. Add byteenable support to the slave to support safe writes from a narrow master.
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate F:\UofT\ECE342\Labs\lab6\start\part2\processor.qsys --synthesis=VERILOG --output-directory=F:\UofT\ECE342\Labs\lab6\start\part2\sys\synthesis --family="Cyclone V" --part=5CSEMA5F31C6
+Progress: Loading part2/processor.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 18.1]
+Progress: Parameterizing module clk_0
+Progress: Adding cpu2_0 [cpu2 1.0]
+Progress: Parameterizing module cpu2_0
+Progress: Adding cpu_0 [cpu 1.0]
+Progress: Parameterizing module cpu_0
+Progress: Adding led_io [altera_avalon_pio 18.1]
+Progress: Parameterizing module led_io
+Progress: Adding onchip_memory2_0 [altera_avalon_onchip_memory2 18.1]
+Progress: Parameterizing module onchip_memory2_0
+Progress: Adding quad_hex_decode_0 [quad_hex_decode 1.0]
+Progress: Parameterizing module quad_hex_decode_0
+Progress: Adding sw_io [altera_avalon_pio 18.1]
+Progress: Parameterizing module sw_io
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: processor.sw_io: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Warning: processor.cpu_0.avalon_master/led_io.s1: Master cpu_0.avalon_master cannot safely write to slave led_io.s1, because the master data width is narrower than the slave data width. Add byteenable support to the slave to support safe writes from a narrow master.
+Info: processor: Generating processor "processor" for QUARTUS_SYNTH
+Info: cpu_0: "processor" instantiated cpu "cpu_0"
+Info: led_io: Starting RTL generation for module 'processor_led_io'
+Info: led_io:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=processor_led_io --dir=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0157_led_io_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0157_led_io_gen//processor_led_io_component_configuration.pl  --do_build_sim=0  ]
+Info: led_io: Done RTL generation for module 'processor_led_io'
+Info: led_io: "processor" instantiated altera_avalon_pio "led_io"
+Info: onchip_memory2_0: Starting RTL generation for module 'processor_onchip_memory2_0'
+Info: onchip_memory2_0:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=processor_onchip_memory2_0 --dir=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0158_onchip_memory2_0_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0158_onchip_memory2_0_gen//processor_onchip_memory2_0_component_configuration.pl  --do_build_sim=0  ]
+Info: onchip_memory2_0: Done RTL generation for module 'processor_onchip_memory2_0'
+Info: onchip_memory2_0: "processor" instantiated altera_avalon_onchip_memory2 "onchip_memory2_0"
+Info: quad_hex_decode_0: "processor" instantiated quad_hex_decode "quad_hex_decode_0"
+Info: sw_io: Starting RTL generation for module 'processor_sw_io'
+Info: sw_io:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=processor_sw_io --dir=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0160_sw_io_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0160_sw_io_gen//processor_sw_io_component_configuration.pl  --do_build_sim=0  ]
+Info: sw_io: Done RTL generation for module 'processor_sw_io'
+Info: sw_io: "processor" instantiated altera_avalon_pio "sw_io"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_0: "processor" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: rst_controller: "processor" instantiated altera_reset_controller "rst_controller"
+Info: cpu_0_avalon_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "cpu_0_avalon_master_translator"
+Info: quad_hex_decode_0_avalon_slave_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "quad_hex_decode_0_avalon_slave_translator"
+Info: cpu_0_avalon_master_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "cpu_0_avalon_master_agent"
+Info: quad_hex_decode_0_avalon_slave_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "quad_hex_decode_0_avalon_slave_agent"
+Info: quad_hex_decode_0_avalon_slave_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "quad_hex_decode_0_avalon_slave_agent_rsp_fifo"
+Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_001"
+Info: router_003: "mm_interconnect_0" instantiated altera_merlin_router "router_003"
+Info: cpu_0_avalon_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "cpu_0_avalon_master_limiter"
+Info: Reusing file F:/UofT/ECE342/Labs/lab6/start/part2/sys/synthesis/submodules/altera_avalon_sc_fifo.v
+Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file F:/UofT/ECE342/Labs/lab6/start/part2/sys/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: sw_io_s1_cmd_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "sw_io_s1_cmd_width_adapter"
+Info: Reusing file F:/UofT/ECE342/Labs/lab6/start/part2/sys/synthesis/submodules/altera_merlin_burst_uncompressor.sv
+Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: avalon_st_adapter_002: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_002"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter_002" instantiated error_adapter "error_adapter_0"
+Info: processor: Done "processor" with 26 modules, 35 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

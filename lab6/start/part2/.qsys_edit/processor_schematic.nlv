@@ -1,0 +1,22 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst processor -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst processor.led_io -pg 1 -lvl 3 -y 30
+preplace inst processor.sw_io -pg 1 -lvl 3 -y 210
+preplace inst processor.cpu2_0 -pg 1 -lvl 2 -y 250
+preplace inst processor.clk_0 -pg 1 -lvl 1 -y 170
+preplace inst processor.onchip_memory2_0 -pg 1 -lvl 3 -y 130
+preplace inst processor.quad_hex_decode_0 -pg 1 -lvl 3 -y 310
+preplace netloc EXPORT<net_container>processor</net_container>(SLAVE)processor.led_o,(SLAVE)led_io.external_connection) 1 0 3 NJ 60 NJ 60 NJ
+preplace netloc EXPORT<net_container>processor</net_container>(SLAVE)processor.quad_hex3,(SLAVE)quad_hex_decode_0.hex3) 1 0 3 NJ 420 NJ 420 NJ
+preplace netloc EXPORT<net_container>processor</net_container>(SLAVE)processor.sw_i,(SLAVE)sw_io.external_connection) 1 0 3 NJ 240 NJ 240 NJ
+preplace netloc FAN_OUT<net_container>processor</net_container>(MASTER)cpu2_0.avalon_master,(SLAVE)sw_io.s1,(SLAVE)onchip_memory2_0.s1,(SLAVE)quad_hex_decode_0.avalon_slave,(SLAVE)led_io.s1) 1 2 1 510
+preplace netloc EXPORT<net_container>processor</net_container>(SLAVE)processor.quad_hex2,(SLAVE)quad_hex_decode_0.hex2) 1 0 3 NJ 400 NJ 400 NJ
+preplace netloc FAN_OUT<net_container>processor</net_container>(SLAVE)cpu2_0.clk,(SLAVE)led_io.clk,(SLAVE)sw_io.clk,(SLAVE)onchip_memory2_0.clk1,(SLAVE)quad_hex_decode_0.clock,(MASTER)clk_0.clk) 1 1 2 280 210 470
+preplace netloc EXPORT<net_container>processor</net_container>(SLAVE)quad_hex_decode_0.hex0,(SLAVE)processor.quad_hex0) 1 0 3 NJ 360 NJ 360 NJ
+preplace netloc EXPORT<net_container>processor</net_container>(SLAVE)clk_0.clk_in,(SLAVE)processor.clk) 1 0 1 NJ
+preplace netloc EXPORT<net_container>processor</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)processor.reset) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>processor</net_container>(MASTER)clk_0.clk_reset,(SLAVE)sw_io.reset,(SLAVE)cpu2_0.reset,(SLAVE)led_io.reset,(SLAVE)onchip_memory2_0.reset1,(SLAVE)quad_hex_decode_0.reset) 1 1 2 300 190 490
+preplace netloc EXPORT<net_container>processor</net_container>(SLAVE)processor.quad_hex1,(SLAVE)quad_hex_decode_0.hex1) 1 0 3 NJ 380 NJ 380 NJ
+levelinfo -pg 1 0 70 740
+levelinfo -hier processor 80 110 330 580 730

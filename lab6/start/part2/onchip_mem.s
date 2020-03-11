@@ -1,0 +1,10 @@
+mvi r1, 0x00
+mvhi r1, 0x20
+
+mvi r2, 0x0
+mvhi r2, 0x30 # LED address
+
+ld r0, r1
+mvhi r0, 0x3
+st r0, r2
+j -0x5
