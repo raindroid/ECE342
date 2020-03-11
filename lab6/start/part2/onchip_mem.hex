@@ -1,8 +1,22 @@
-0030	// 0000: mvi r1, 0x00
-2036	// 0002: mvhi r1, 0x20
-0050	// 0004: mvi r2, 0x0
-3056	// 0006: mvhi r2, 0x30 # LED address
-0104	// 0008: ld r0, r1
-0316	// 000a: mvhi r0, 0x3
-0205	// 000c: st r0, r2
-ff78	// 000e: j -0x5
+0090	// 0000: mvi r4, 0x00 # switches
+2096	// 0002: mvhi r4, 0x20
+00b0	// 0004: mvi r5, 0x0
+30b6	// 0006: mvhi r5, 0x30 # LED address
+00d0	// 0008: mvi r6, 0x0 # HEX
+10d6	// 000a: mvhi r6, 0x10
+0030	// 000c: mvi r1, 0  # init counter
+0404	// 000e: ld r0, r4   # update speed
+0505	// 0010: st r0, r5
+0111	// 0012: addi r0, 1
+007c	// 0014: call loop
+0131	// 0016: addi r1, 1
+0625	// 0018: st r1, r6 # display the number
+ff38	// 001a: j -0x7
+0013	// 001c: cmpi r0, 0
+00e9	// 001e: jzr r7
+0112	// 0020: subi r0, 1
+ff70	// 0022: mvi r3, 0xff
+3f76	// 0024: mvhi r3, 0x3f
+0172	// 0026: subi r3, 1 # wait longer
+ff39	// 0028: jz loop
+ffb8	// 002a: j delay

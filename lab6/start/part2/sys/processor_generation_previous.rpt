@@ -4,8 +4,6 @@ Progress: Loading part2/processor.qsys
 Progress: Reading input file
 Progress: Adding clk_0 [clock_source 18.1]
 Progress: Parameterizing module clk_0
-Progress: Adding cpu2_0 [cpu2 1.0]
-Progress: Parameterizing module cpu2_0
 Progress: Adding cpu_0 [cpu 1.0]
 Progress: Parameterizing module cpu_0
 Progress: Adding led_io [altera_avalon_pio 18.1]
@@ -31,8 +29,6 @@ Progress: Loading part2/processor.qsys
 Progress: Reading input file
 Progress: Adding clk_0 [clock_source 18.1]
 Progress: Parameterizing module clk_0
-Progress: Adding cpu2_0 [cpu2 1.0]
-Progress: Parameterizing module cpu2_0
 Progress: Adding cpu_0 [cpu 1.0]
 Progress: Parameterizing module cpu_0
 Progress: Adding led_io [altera_avalon_pio 18.1]
@@ -52,16 +48,16 @@ Warning: processor.cpu_0.avalon_master/led_io.s1: Master cpu_0.avalon_master can
 Info: processor: Generating processor "processor" for QUARTUS_SYNTH
 Info: cpu_0: "processor" instantiated cpu "cpu_0"
 Info: led_io: Starting RTL generation for module 'processor_led_io'
-Info: led_io:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=processor_led_io --dir=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0157_led_io_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0157_led_io_gen//processor_led_io_component_configuration.pl  --do_build_sim=0  ]
+Info: led_io:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=processor_led_io --dir=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0201_led_io_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0201_led_io_gen//processor_led_io_component_configuration.pl  --do_build_sim=0  ]
 Info: led_io: Done RTL generation for module 'processor_led_io'
 Info: led_io: "processor" instantiated altera_avalon_pio "led_io"
 Info: onchip_memory2_0: Starting RTL generation for module 'processor_onchip_memory2_0'
-Info: onchip_memory2_0:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=processor_onchip_memory2_0 --dir=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0158_onchip_memory2_0_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0158_onchip_memory2_0_gen//processor_onchip_memory2_0_component_configuration.pl  --do_build_sim=0  ]
+Info: onchip_memory2_0:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=processor_onchip_memory2_0 --dir=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0202_onchip_memory2_0_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0202_onchip_memory2_0_gen//processor_onchip_memory2_0_component_configuration.pl  --do_build_sim=0  ]
 Info: onchip_memory2_0: Done RTL generation for module 'processor_onchip_memory2_0'
 Info: onchip_memory2_0: "processor" instantiated altera_avalon_onchip_memory2 "onchip_memory2_0"
 Info: quad_hex_decode_0: "processor" instantiated quad_hex_decode "quad_hex_decode_0"
 Info: sw_io: Starting RTL generation for module 'processor_sw_io'
-Info: sw_io:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=processor_sw_io --dir=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0160_sw_io_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0160_sw_io_gen//processor_sw_io_component_configuration.pl  --do_build_sim=0  ]
+Info: sw_io:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=processor_sw_io --dir=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0204_sw_io_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/Rain/AppData/Local/Temp/alt8332_5429377437582097104.dir/0204_sw_io_gen//processor_sw_io_component_configuration.pl  --do_build_sim=0  ]
 Info: sw_io: Done RTL generation for module 'processor_sw_io'
 Info: sw_io: "processor" instantiated altera_avalon_pio "sw_io"
 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0

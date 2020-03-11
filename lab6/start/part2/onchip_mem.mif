@@ -1,15 +1,29 @@
-DEPTH = 8;
+DEPTH = 22;
 WIDTH = 16;
 ADDRESS_RADIX = HEX;
 DATA_RADIX = HEX;
 CONTENT
 BEGIN
-0000 : 0030;	-- mvi r1, 0x00
-0001 : 2036;	-- mvhi r1, 0x20
-0002 : 0050;	-- mvi r2, 0x0
-0003 : 3056;	-- mvhi r2, 0x30 # LED address
-0004 : 0104;	-- ld r0, r1
-0005 : 0316;	-- mvhi r0, 0x3
-0006 : 0205;	-- st r0, r2
-0007 : ff78;	-- j -0x5
+0000 : 0090;	-- mvi r4, 0x00 # switches
+0001 : 2096;	-- mvhi r4, 0x20
+0002 : 00b0;	-- mvi r5, 0x0
+0003 : 30b6;	-- mvhi r5, 0x30 # LED address
+0004 : 00d0;	-- mvi r6, 0x0 # HEX
+0005 : 10d6;	-- mvhi r6, 0x10
+0006 : 0030;	-- mvi r1, 0  # init counter
+0007 : 0404;	-- ld r0, r4   # update speed
+0008 : 0505;	-- st r0, r5
+0009 : 0111;	-- addi r0, 1
+000a : 007c;	-- call loop
+000b : 0131;	-- addi r1, 1
+000c : 0625;	-- st r1, r6 # display the number
+000d : ff38;	-- j -0x7
+000e : 0013;	-- cmpi r0, 0
+000f : 00e9;	-- jzr r7
+0010 : 0112;	-- subi r0, 1
+0011 : ff70;	-- mvi r3, 0xff
+0012 : 3f76;	-- mvhi r3, 0x3f
+0013 : 0172;	-- subi r3, 1 # wait longer
+0014 : ff39;	-- jz loop
+0015 : ffb8;	-- j delay
 END;
