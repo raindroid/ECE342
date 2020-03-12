@@ -1,16 +1,48 @@
-0090	// 0000: mvi r4, 0x00 # switches
-2096	// 0002: mvhi r4, 0x20
-00b0	// 0004: mvi r5, 0x0
-30b6	// 0006: mvhi r5, 0x30 # LED address
-10d0	// 0008: mvi r6, 0x10 
-11d6	// 000a: mvhi r6, 0x11
-4f10	// 000c: mvi r0, 0x4f
-a316	// 000e: mvhi r0, 0xa3
-0605	// 0010: st r0, r6
-14d0	// 0012: mvi r6, 0x14
-11d0	// 0014: mvi r6, 0x11
-0210	// 0016: mvi r0, 0x2
-0605	// 0018: st r0, r6
-0404	// 001a: ld r0, r4
-0505	// 001c: st r0, r5
-ff38	// 001e: j -0x7
+0090	// 0000:     mvi r4, 0x00 # switches
+2096	// 0002:     mvhi r4, 0x20
+00b0	// 0004:     mvi r5, 0x0
+30b6	// 0006:     mvhi r5, 0x30 # LED address
+12d0	// 0008:     mvi r6, 0x12
+11d6	// 000a:     mvhi r6, 0x11
+0110	// 000c:     mvi r0, 0x1
+0605	// 000e:     st r0, r6
+023c	// 0010:     call		init_line
+0010	// 0012:     mvi r0, 0
+027c	// 0014:     call		draw_line
+03fc	// 0016:     call		delay
+0131	// 0018:     addi r1, 1
+0151	// 001a:     addi r2, 1
+50d0	// 001c:     mvi r6, 0x50 # store 336 (0x150)
+01d6	// 001e:     mvhi r6, 1
+0623	// 0020:     cmp r1, r6
+fed9	// 0022:     jz draw_start
+0404	// 0024:     ld r0, r4   # read color
+015c	// 0026:     call		draw_line
+003c	// 0028:     call		display_info #for debug
+fe78	// 002a:     j draw_loop
+0505	// 002c:     st r0, r5
+00d0	// 002e:     mvi r6, 0x00
+10d6	// 0030:     mvhi r6, 0x10
+0625	// 0032:     st r1, r6
+0030	// 0034:     mvi r1, 0
+0050	// 0036:     mvi r2, 0
+1256	// 0038:     mvhi r2, 0x12
+00e8	// 003a:     jr r7
+14d0	// 003c:     mvi r6, 0x14
+11d6	// 003e:     mvhi r6, 0x11
+0605	// 0040:     st r0, r6
+0cd0	// 0042:     mvi r6, 0x0c
+11d6	// 0044:     mvhi r6, 0x11
+0625	// 0046:     st r1, r6
+10d0	// 0048:     mvi r6, 0x10
+11d6	// 004a:     mvhi r6, 0x11
+0645	// 004c:     st r2, r6
+14d0	// 004e:     mvi r6, 0x14
+11d6	// 0050:     mvhi r6, 0x11
+06c5	// 0052:     st r6, r6
+00e8	// 0054:     jr r7
+ffd0	// 0056:     mvi r6, 0xff
+ffd6	// 0058:     mvhi r6, 0xff
+01d2	// 005a:     subi r6, 1
+00e9	// 005c:     jzr r7
+ffb8	// 005e:     j delay_loop

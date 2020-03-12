@@ -88,18 +88,18 @@ module avalon_slave_controller (
     lda_reg_n #(16) reg_line_start_byte10 (
         .i_clk(clk), 
         .i_reset(reset), 
-        // .i_en(s_address==address_line_start && s_write && s_byteenable==4'b11), 
-        // .i_in(s_writedata[15:0]),   // select 16 bits 
-        .i_en(1), 
-        .i_in(16'h0),   // select 16 bits 
+        .i_en(s_address==address_line_start && s_write && s_byteenable==4'b11), 
+        .i_in(s_writedata[15:0]),   // select 16 bits 
+        // .i_en(1), 
+        // .i_in(16'h0),   // select 16 bits 
         .o_data(s_reg_map[address_line_start][15:0]));
     lda_reg_n #(16) reg_line_start_byte32 (
         .i_clk(clk), 
         .i_reset(reset), 
-        // .i_en(s_address==address_line_start && s_write && s_byteenable==4'b1100), 
-        // .i_in(s_writedata[31:16] & 16'b1),   // select last 1 bits 
-        .i_en(1), 
-        .i_in(16'h0),   // select last 1 bits 
+        .i_en(s_address==address_line_start && s_write && s_byteenable==4'b1100), 
+        .i_in(s_writedata[31:16] & 16'b1),   // select last 1 bits 
+        // .i_en(1), 
+        // .i_in(16'h0),   // select last 1 bits 
         .o_data(s_reg_map[address_line_start][31:16]));
     assign s_x0 = s_reg_map[address_line_start][8:0];
     assign s_y0 = s_reg_map[address_line_start][16:9];
@@ -107,10 +107,10 @@ module avalon_slave_controller (
     lda_reg_n #(16) reg_line_end_byte10 (
         .i_clk(clk), 
         .i_reset(reset), 
-        .i_en(1), 
-        // .i_en(s_address==address_line_end && s_write && s_byteenable==4'b11), 
-        .i_in(16'ha34f),   // select last 17 bits 
-        // .i_in(s_writedata[15:0]),   // select last 17 bits 
+        // .i_en(1), 
+        .i_en(s_address==address_line_end && s_write && s_byteenable==4'b11), 
+        // .i_in(16'ha34f),   // select last 17 bits 
+        .i_in(s_writedata[15:0]),   // select last 17 bits 
         .o_data(s_reg_map[address_line_end][15:0]));
     lda_reg_n #(16) reg_line_end_byte32 (
         .i_clk(clk), 
@@ -124,10 +124,10 @@ module avalon_slave_controller (
     lda_reg_n #(32) reg_color (
         .i_clk(clk), 
         .i_reset(reset), 
-        .i_en(1), 
-        .i_in(32'b111),   // select last 3 bits
-        // .i_en(s_address==address_line_color && s_write), 
-        // .i_in(s_writedata & 32'b111),   // select last 3 bits
+        // .i_en(1), 
+        // .i_in(32'b111),   // select last 3 bits
+        .i_en(s_address==address_line_color && s_write), 
+        .i_in(s_writedata & 32'b111),   // select last 3 bits
         .o_data(s_reg_map[address_line_color]));
     assign s_color = s_reg_map[address_line_color][2:0];
 

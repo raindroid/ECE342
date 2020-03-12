@@ -16,6 +16,11 @@
          value = "6";
          type = "int";
       }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
    }
    element LDA_0.s1
    {
@@ -39,6 +44,27 @@
       {
          value = "1";
          type = "int";
+      }
+   }
+   element lda_avalon_interface_0
+   {
+      datum _sortIndex
+      {
+         value = "7";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element lda_avalon_interface_0.s1
+   {
+      datum baseAddress
+      {
+         value = "4352";
+         type = "String";
       }
    }
    element led_io
@@ -137,6 +163,7 @@
  <interface name="lda_vga_g" internal="LDA_0.vga_g" type="conduit" dir="end" />
  <interface name="lda_vga_hs" internal="LDA_0.vga_hs" type="conduit" dir="end" />
  <interface name="lda_vga_r" internal="LDA_0.vga_r" type="conduit" dir="end" />
+ <interface name="lda_vga_r_1" internal="lda_avalon_interface_0.vga_r" />
  <interface
    name="lda_vga_sync_n"
    internal="LDA_0.vga_sync_n"
@@ -182,6 +209,11 @@
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
  <module name="cpu_0" kind="cpu" version="1.0" enabled="1" />
+ <module
+   name="lda_avalon_interface_0"
+   kind="lda_avalon_interface"
+   version="2.0"
+   enabled="0" />
  <module name="led_io" kind="altera_avalon_pio" version="18.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -292,6 +324,15 @@
   <parameter name="baseAddress" value="0x1100" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="cpu_0.avalon_master"
+   end="lda_avalon_interface_0.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x1100" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <connection kind="clock" version="18.1" start="clk_0.clk" end="sw_io.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="led_io.clk" />
  <connection
@@ -306,6 +347,11 @@
    end="quad_hex_decode_0.clock" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="cpu_0.clock" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="LDA_0.clock" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_0.clk"
+   end="lda_avalon_interface_0.clock" />
  <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="sw_io.reset" />
  <connection
    kind="reset"
@@ -319,6 +365,11 @@
    end="quad_hex_decode_0.reset" />
  <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="cpu_0.reset" />
  <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="LDA_0.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="lda_avalon_interface_0.reset" />
  <connection
    kind="reset"
    version="18.1"

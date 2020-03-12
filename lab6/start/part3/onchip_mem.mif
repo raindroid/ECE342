@@ -1,23 +1,55 @@
-DEPTH = 16;
+DEPTH = 48;
 WIDTH = 16;
 ADDRESS_RADIX = HEX;
 DATA_RADIX = HEX;
 CONTENT
 BEGIN
-0000 : 0090;	-- mvi r4, 0x00 # switches
-0001 : 2096;	-- mvhi r4, 0x20
-0002 : 00b0;	-- mvi r5, 0x0
-0003 : 30b6;	-- mvhi r5, 0x30 # LED address
-0004 : 10d0;	-- mvi r6, 0x10 
-0005 : 11d6;	-- mvhi r6, 0x11
-0006 : 4f10;	-- mvi r0, 0x4f
-0007 : a316;	-- mvhi r0, 0xa3
-0008 : 0605;	-- st r0, r6
-0009 : 14d0;	-- mvi r6, 0x14
-000a : 11d0;	-- mvi r6, 0x11
-000b : 0210;	-- mvi r0, 0x2
-000c : 0605;	-- st r0, r6
-000d : 0404;	-- ld r0, r4
-000e : 0505;	-- st r0, r5
-000f : ff38;	-- j -0x7
+0000 : 0090;	--     mvi r4, 0x00 # switches
+0001 : 2096;	--     mvhi r4, 0x20
+0002 : 00b0;	--     mvi r5, 0x0
+0003 : 30b6;	--     mvhi r5, 0x30 # LED address
+0004 : 12d0;	--     mvi r6, 0x12
+0005 : 11d6;	--     mvhi r6, 0x11
+0006 : 0110;	--     mvi r0, 0x1
+0007 : 0605;	--     st r0, r6
+0008 : 023c;	--     call		init_line
+0009 : 0010;	--     mvi r0, 0
+000a : 027c;	--     call		draw_line
+000b : 03fc;	--     call		delay
+000c : 0131;	--     addi r1, 1
+000d : 0151;	--     addi r2, 1
+000e : 50d0;	--     mvi r6, 0x50 # store 336 (0x150)
+000f : 01d6;	--     mvhi r6, 1
+0010 : 0623;	--     cmp r1, r6
+0011 : fed9;	--     jz draw_start
+0012 : 0404;	--     ld r0, r4   # read color
+0013 : 015c;	--     call		draw_line
+0014 : 003c;	--     call		display_info #for debug
+0015 : fe78;	--     j draw_loop
+0016 : 0505;	--     st r0, r5
+0017 : 00d0;	--     mvi r6, 0x00
+0018 : 10d6;	--     mvhi r6, 0x10
+0019 : 0625;	--     st r1, r6
+001a : 0030;	--     mvi r1, 0
+001b : 0050;	--     mvi r2, 0
+001c : 1256;	--     mvhi r2, 0x12
+001d : 00e8;	--     jr r7
+001e : 14d0;	--     mvi r6, 0x14
+001f : 11d6;	--     mvhi r6, 0x11
+0020 : 0605;	--     st r0, r6
+0021 : 0cd0;	--     mvi r6, 0x0c
+0022 : 11d6;	--     mvhi r6, 0x11
+0023 : 0625;	--     st r1, r6
+0024 : 10d0;	--     mvi r6, 0x10
+0025 : 11d6;	--     mvhi r6, 0x11
+0026 : 0645;	--     st r2, r6
+0027 : 14d0;	--     mvi r6, 0x14
+0028 : 11d6;	--     mvhi r6, 0x11
+0029 : 06c5;	--     st r6, r6
+002a : 00e8;	--     jr r7
+002b : ffd0;	--     mvi r6, 0xff
+002c : ffd6;	--     mvhi r6, 0xff
+002d : 01d2;	--     subi r6, 1
+002e : 00e9;	--     jzr r7
+002f : ffb8;	--     j delay_loop
 END;
