@@ -20,7 +20,6 @@ draw_loop:
     // draw black
     mvi r0, 0
     call		draw_line
-    call		delay
     // update position
     addi r1, 1
     addi r2, 1
@@ -33,6 +32,8 @@ draw_loop:
     ld r0, r4   # read color
     call		draw_line
     call		display_info #for debug
+
+    call		delay
     j draw_loop
 
 display_info:
@@ -41,12 +42,13 @@ display_info:
     mvi r6, 0x00
     mvhi r6, 0x10
     st r1, r6
+    jr r7
 
 init_line:
     // set initial line start and line end [15:0]
     mvi r1, 0
     mvi r2, 0
-    mvhi r2, 0x12
+    mvhi r2, 0xa2
     jr r7
 
 draw_line:
@@ -70,14 +72,16 @@ draw_line:
     st r2, r6
 
     // REVIEW DRAW SIGNAL!
-    mvi r6, 0x14
+    mvi r6, 0x08
     mvhi r6, 0x11
     st r6, r6
     jr r7
 
 delay:
-    mvi r6, 0x0
-delay_loop:
-    subi r6, 1
-    jzr r7
-    j delay_loop
+    mvi r6, 0xff
+    mvhi r6, 0x9f
+    delay_loop:
+        subi r6, 1
+        jzr r7
+        j delay_loop
+            
