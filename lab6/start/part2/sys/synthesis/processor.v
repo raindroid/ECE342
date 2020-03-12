@@ -14,22 +14,15 @@ module processor (
 		input  wire [9:0] sw_i_export       //      sw_i.export
 	);
 
-	wire  [15:0] cpu2_0_avalon_master_readdata;                              // mm_interconnect_0:cpu2_0_avalon_master_readdata -> cpu2_0:i_mem_rddata
-	wire         cpu2_0_avalon_master_waitrequest;                           // mm_interconnect_0:cpu2_0_avalon_master_waitrequest -> cpu2_0:i_mem_wait
-	wire  [15:0] cpu2_0_avalon_master_address;                               // cpu2_0:o_mem_addr -> mm_interconnect_0:cpu2_0_avalon_master_address
-	wire         cpu2_0_avalon_master_read;                                  // cpu2_0:o_mem_rd -> mm_interconnect_0:cpu2_0_avalon_master_read
-	wire         cpu2_0_avalon_master_readdatavalid;                         // mm_interconnect_0:cpu2_0_avalon_master_readdatavalid -> cpu2_0:i_mem_rddatavalid
-	wire         cpu2_0_avalon_master_write;                                 // cpu2_0:o_mem_wr -> mm_interconnect_0:cpu2_0_avalon_master_write
-	wire  [15:0] cpu2_0_avalon_master_writedata;                             // cpu2_0:o_mem_wrdata -> mm_interconnect_0:cpu2_0_avalon_master_writedata
+	wire  [15:0] cpu_0_avalon_master_readdata;                               // mm_interconnect_0:cpu_0_avalon_master_readdata -> cpu_0:i_mem_rddata
+	wire         cpu_0_avalon_master_waitrequest;                            // mm_interconnect_0:cpu_0_avalon_master_waitrequest -> cpu_0:i_mem_wait
+	wire  [15:0] cpu_0_avalon_master_address;                                // cpu_0:o_mem_addr -> mm_interconnect_0:cpu_0_avalon_master_address
+	wire         cpu_0_avalon_master_read;                                   // cpu_0:o_mem_rd -> mm_interconnect_0:cpu_0_avalon_master_read
+	wire         cpu_0_avalon_master_readdatavalid;                          // mm_interconnect_0:cpu_0_avalon_master_readdatavalid -> cpu_0:i_mem_rddatavalid
+	wire         cpu_0_avalon_master_write;                                  // cpu_0:o_mem_wr -> mm_interconnect_0:cpu_0_avalon_master_write
+	wire  [15:0] cpu_0_avalon_master_writedata;                              // cpu_0:o_mem_wrdata -> mm_interconnect_0:cpu_0_avalon_master_writedata
 	wire         mm_interconnect_0_quad_hex_decode_0_avalon_slave_write;     // mm_interconnect_0:quad_hex_decode_0_avalon_slave_write -> quad_hex_decode_0:write
 	wire  [15:0] mm_interconnect_0_quad_hex_decode_0_avalon_slave_writedata; // mm_interconnect_0:quad_hex_decode_0_avalon_slave_writedata -> quad_hex_decode_0:writedata
-	wire         mm_interconnect_0_led_io_s1_chipselect;                     // mm_interconnect_0:led_io_s1_chipselect -> led_io:chipselect
-	wire  [31:0] mm_interconnect_0_led_io_s1_readdata;                       // led_io:readdata -> mm_interconnect_0:led_io_s1_readdata
-	wire   [1:0] mm_interconnect_0_led_io_s1_address;                        // mm_interconnect_0:led_io_s1_address -> led_io:address
-	wire         mm_interconnect_0_led_io_s1_write;                          // mm_interconnect_0:led_io_s1_write -> led_io:write_n
-	wire  [31:0] mm_interconnect_0_led_io_s1_writedata;                      // mm_interconnect_0:led_io_s1_writedata -> led_io:writedata
-	wire  [31:0] mm_interconnect_0_sw_io_s1_readdata;                        // sw_io:readdata -> mm_interconnect_0:sw_io_s1_readdata
-	wire   [1:0] mm_interconnect_0_sw_io_s1_address;                         // mm_interconnect_0:sw_io_s1_address -> sw_io:address
 	wire         mm_interconnect_0_onchip_memory2_0_s1_chipselect;           // mm_interconnect_0:onchip_memory2_0_s1_chipselect -> onchip_memory2_0:chipselect
 	wire  [15:0] mm_interconnect_0_onchip_memory2_0_s1_readdata;             // onchip_memory2_0:readdata -> mm_interconnect_0:onchip_memory2_0_s1_readdata
 	wire  [10:0] mm_interconnect_0_onchip_memory2_0_s1_address;              // mm_interconnect_0:onchip_memory2_0_s1_address -> onchip_memory2_0:address
@@ -37,19 +30,26 @@ module processor (
 	wire         mm_interconnect_0_onchip_memory2_0_s1_write;                // mm_interconnect_0:onchip_memory2_0_s1_write -> onchip_memory2_0:write
 	wire  [15:0] mm_interconnect_0_onchip_memory2_0_s1_writedata;            // mm_interconnect_0:onchip_memory2_0_s1_writedata -> onchip_memory2_0:writedata
 	wire         mm_interconnect_0_onchip_memory2_0_s1_clken;                // mm_interconnect_0:onchip_memory2_0_s1_clken -> onchip_memory2_0:clken
-	wire         rst_controller_reset_out_reset;                             // rst_controller:reset_out -> [cpu2_0:i_reset, led_io:reset_n, mm_interconnect_0:cpu2_0_reset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, quad_hex_decode_0:reset, rst_translator:in_reset, sw_io:reset_n]
+	wire  [31:0] mm_interconnect_0_sw_io_s1_readdata;                        // sw_io:readdata -> mm_interconnect_0:sw_io_s1_readdata
+	wire   [1:0] mm_interconnect_0_sw_io_s1_address;                         // mm_interconnect_0:sw_io_s1_address -> sw_io:address
+	wire         mm_interconnect_0_led_io_s1_chipselect;                     // mm_interconnect_0:led_io_s1_chipselect -> led_io:chipselect
+	wire  [31:0] mm_interconnect_0_led_io_s1_readdata;                       // led_io:readdata -> mm_interconnect_0:led_io_s1_readdata
+	wire   [1:0] mm_interconnect_0_led_io_s1_address;                        // mm_interconnect_0:led_io_s1_address -> led_io:address
+	wire         mm_interconnect_0_led_io_s1_write;                          // mm_interconnect_0:led_io_s1_write -> led_io:write_n
+	wire  [31:0] mm_interconnect_0_led_io_s1_writedata;                      // mm_interconnect_0:led_io_s1_writedata -> led_io:writedata
+	wire         rst_controller_reset_out_reset;                             // rst_controller:reset_out -> [cpu_0:reset, led_io:reset_n, mm_interconnect_0:cpu_0_reset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, quad_hex_decode_0:reset, rst_translator:in_reset, sw_io:reset_n]
 	wire         rst_controller_reset_out_reset_req;                         // rst_controller:reset_req -> [onchip_memory2_0:reset_req, rst_translator:reset_req_in]
 
-	cpu cpu2_0 (
-		.o_mem_addr        (cpu2_0_avalon_master_address),       // avalon_master.address
-		.o_mem_rd          (cpu2_0_avalon_master_read),          //              .read
-		.i_mem_rddata      (cpu2_0_avalon_master_readdata),      //              .readdata
-		.o_mem_wr          (cpu2_0_avalon_master_write),         //              .write
-		.o_mem_wrdata      (cpu2_0_avalon_master_writedata),     //              .writedata
-		.i_mem_wait        (cpu2_0_avalon_master_waitrequest),   //              .waitrequest
-		.i_mem_rddatavalid (cpu2_0_avalon_master_readdatavalid), //              .readdatavalid
-		.i_clk             (clk_clk),                            //           clk.clk
-		.i_reset           (rst_controller_reset_out_reset)      //         reset.reset
+	cpu cpu_0 (
+		.clk               (clk_clk),                           //         clock.clk
+		.reset             (rst_controller_reset_out_reset),    //         reset.reset
+		.o_mem_addr        (cpu_0_avalon_master_address),       // avalon_master.address
+		.o_mem_rd          (cpu_0_avalon_master_read),          //              .read
+		.i_mem_rddata      (cpu_0_avalon_master_readdata),      //              .readdata
+		.o_mem_wr          (cpu_0_avalon_master_write),         //              .write
+		.o_mem_wrdata      (cpu_0_avalon_master_writedata),     //              .writedata
+		.i_mem_wait        (cpu_0_avalon_master_waitrequest),   //              .waitrequest
+		.i_mem_rddatavalid (cpu_0_avalon_master_readdatavalid)  //              .readdatavalid
 	);
 
 	processor_led_io led_io (
@@ -97,31 +97,31 @@ module processor (
 	);
 
 	processor_mm_interconnect_0 mm_interconnect_0 (
-		.clk_0_clk_clk                            (clk_clk),                                                    //                          clk_0_clk.clk
-		.cpu2_0_reset_reset_bridge_in_reset_reset (rst_controller_reset_out_reset),                             // cpu2_0_reset_reset_bridge_in_reset.reset
-		.cpu2_0_avalon_master_address             (cpu2_0_avalon_master_address),                               //               cpu2_0_avalon_master.address
-		.cpu2_0_avalon_master_waitrequest         (cpu2_0_avalon_master_waitrequest),                           //                                   .waitrequest
-		.cpu2_0_avalon_master_read                (cpu2_0_avalon_master_read),                                  //                                   .read
-		.cpu2_0_avalon_master_readdata            (cpu2_0_avalon_master_readdata),                              //                                   .readdata
-		.cpu2_0_avalon_master_readdatavalid       (cpu2_0_avalon_master_readdatavalid),                         //                                   .readdatavalid
-		.cpu2_0_avalon_master_write               (cpu2_0_avalon_master_write),                                 //                                   .write
-		.cpu2_0_avalon_master_writedata           (cpu2_0_avalon_master_writedata),                             //                                   .writedata
-		.led_io_s1_address                        (mm_interconnect_0_led_io_s1_address),                        //                          led_io_s1.address
-		.led_io_s1_write                          (mm_interconnect_0_led_io_s1_write),                          //                                   .write
-		.led_io_s1_readdata                       (mm_interconnect_0_led_io_s1_readdata),                       //                                   .readdata
-		.led_io_s1_writedata                      (mm_interconnect_0_led_io_s1_writedata),                      //                                   .writedata
-		.led_io_s1_chipselect                     (mm_interconnect_0_led_io_s1_chipselect),                     //                                   .chipselect
-		.onchip_memory2_0_s1_address              (mm_interconnect_0_onchip_memory2_0_s1_address),              //                onchip_memory2_0_s1.address
-		.onchip_memory2_0_s1_write                (mm_interconnect_0_onchip_memory2_0_s1_write),                //                                   .write
-		.onchip_memory2_0_s1_readdata             (mm_interconnect_0_onchip_memory2_0_s1_readdata),             //                                   .readdata
-		.onchip_memory2_0_s1_writedata            (mm_interconnect_0_onchip_memory2_0_s1_writedata),            //                                   .writedata
-		.onchip_memory2_0_s1_byteenable           (mm_interconnect_0_onchip_memory2_0_s1_byteenable),           //                                   .byteenable
-		.onchip_memory2_0_s1_chipselect           (mm_interconnect_0_onchip_memory2_0_s1_chipselect),           //                                   .chipselect
-		.onchip_memory2_0_s1_clken                (mm_interconnect_0_onchip_memory2_0_s1_clken),                //                                   .clken
-		.quad_hex_decode_0_avalon_slave_write     (mm_interconnect_0_quad_hex_decode_0_avalon_slave_write),     //     quad_hex_decode_0_avalon_slave.write
-		.quad_hex_decode_0_avalon_slave_writedata (mm_interconnect_0_quad_hex_decode_0_avalon_slave_writedata), //                                   .writedata
-		.sw_io_s1_address                         (mm_interconnect_0_sw_io_s1_address),                         //                           sw_io_s1.address
-		.sw_io_s1_readdata                        (mm_interconnect_0_sw_io_s1_readdata)                         //                                   .readdata
+		.clk_0_clk_clk                            (clk_clk),                                                    //                         clk_0_clk.clk
+		.cpu_0_reset_reset_bridge_in_reset_reset  (rst_controller_reset_out_reset),                             // cpu_0_reset_reset_bridge_in_reset.reset
+		.cpu_0_avalon_master_address              (cpu_0_avalon_master_address),                                //               cpu_0_avalon_master.address
+		.cpu_0_avalon_master_waitrequest          (cpu_0_avalon_master_waitrequest),                            //                                  .waitrequest
+		.cpu_0_avalon_master_read                 (cpu_0_avalon_master_read),                                   //                                  .read
+		.cpu_0_avalon_master_readdata             (cpu_0_avalon_master_readdata),                               //                                  .readdata
+		.cpu_0_avalon_master_readdatavalid        (cpu_0_avalon_master_readdatavalid),                          //                                  .readdatavalid
+		.cpu_0_avalon_master_write                (cpu_0_avalon_master_write),                                  //                                  .write
+		.cpu_0_avalon_master_writedata            (cpu_0_avalon_master_writedata),                              //                                  .writedata
+		.led_io_s1_address                        (mm_interconnect_0_led_io_s1_address),                        //                         led_io_s1.address
+		.led_io_s1_write                          (mm_interconnect_0_led_io_s1_write),                          //                                  .write
+		.led_io_s1_readdata                       (mm_interconnect_0_led_io_s1_readdata),                       //                                  .readdata
+		.led_io_s1_writedata                      (mm_interconnect_0_led_io_s1_writedata),                      //                                  .writedata
+		.led_io_s1_chipselect                     (mm_interconnect_0_led_io_s1_chipselect),                     //                                  .chipselect
+		.onchip_memory2_0_s1_address              (mm_interconnect_0_onchip_memory2_0_s1_address),              //               onchip_memory2_0_s1.address
+		.onchip_memory2_0_s1_write                (mm_interconnect_0_onchip_memory2_0_s1_write),                //                                  .write
+		.onchip_memory2_0_s1_readdata             (mm_interconnect_0_onchip_memory2_0_s1_readdata),             //                                  .readdata
+		.onchip_memory2_0_s1_writedata            (mm_interconnect_0_onchip_memory2_0_s1_writedata),            //                                  .writedata
+		.onchip_memory2_0_s1_byteenable           (mm_interconnect_0_onchip_memory2_0_s1_byteenable),           //                                  .byteenable
+		.onchip_memory2_0_s1_chipselect           (mm_interconnect_0_onchip_memory2_0_s1_chipselect),           //                                  .chipselect
+		.onchip_memory2_0_s1_clken                (mm_interconnect_0_onchip_memory2_0_s1_clken),                //                                  .clken
+		.quad_hex_decode_0_avalon_slave_write     (mm_interconnect_0_quad_hex_decode_0_avalon_slave_write),     //    quad_hex_decode_0_avalon_slave.write
+		.quad_hex_decode_0_avalon_slave_writedata (mm_interconnect_0_quad_hex_decode_0_avalon_slave_writedata), //                                  .writedata
+		.sw_io_s1_address                         (mm_interconnect_0_sw_io_s1_address),                         //                          sw_io_s1.address
+		.sw_io_s1_readdata                        (mm_interconnect_0_sw_io_s1_readdata)                         //                                  .readdata
 	);
 
 	altera_reset_controller #(

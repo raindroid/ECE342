@@ -17,14 +17,6 @@
          type = "int";
       }
    }
-   element cpu2_0
-   {
-      datum _sortIndex
-      {
-         value = "6";
-         type = "int";
-      }
-   }
    element cpu_0
    {
       datum _sortIndex
@@ -156,8 +148,7 @@
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
- <module name="cpu2_0" kind="cpu2" version="1.0" enabled="1" />
- <module name="cpu_0" kind="cpu" version="1.0" enabled="0" />
+ <module name="cpu_0" kind="cpu" version="1.0" enabled="1" />
  <module name="led_io" kind="altera_avalon_pio" version="18.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -235,15 +226,6 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="cpu2_0.avalon_master"
-   end="quad_hex_decode_0.avalon_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x1000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
    start="cpu_0.avalon_master"
    end="onchip_memory2_0.s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -266,38 +248,10 @@
    end="led_io.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x3000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="cpu2_0.avalon_master"
-   end="led_io.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x3000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="cpu2_0.avalon_master"
-   end="sw_io.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x2000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="cpu2_0.avalon_master"
-   end="onchip_memory2_0.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="18.1" start="clk_0.clk" end="sw_io.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="led_io.clk" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="cpu2_0.clk" />
  <connection
    kind="clock"
    version="18.1"
@@ -321,11 +275,6 @@
    start="clk_0.clk_reset"
    end="quad_hex_decode_0.reset" />
  <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="cpu_0.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="cpu2_0.reset" />
  <connection
    kind="reset"
    version="18.1"

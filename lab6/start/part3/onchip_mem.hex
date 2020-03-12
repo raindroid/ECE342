@@ -1,0 +1,16 @@
+0090	// 0000: mvi r4, 0x00 # switches
+2096	// 0002: mvhi r4, 0x20
+00b0	// 0004: mvi r5, 0x0
+30b6	// 0006: mvhi r5, 0x30 # LED address
+10d0	// 0008: mvi r6, 0x10 
+11d6	// 000a: mvhi r6, 0x11
+4f10	// 000c: mvi r0, 0x4f
+a316	// 000e: mvhi r0, 0xa3
+0605	// 0010: st r0, r6
+14d0	// 0012: mvi r6, 0x14
+11d0	// 0014: mvi r6, 0x11
+0210	// 0016: mvi r0, 0x2
+0605	// 0018: st r0, r6
+0404	// 001a: ld r0, r4
+0505	// 001c: st r0, r5
+ff38	// 001e: j -0x7
