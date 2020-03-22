@@ -38,7 +38,7 @@ module cpu_register_file (
         GPR_in[i_rw] = i_rw_en;
     end
     
-    assign o_rx_data = (i_rw == i_rx) ? i_rw_data : GPR_data[i_rx];
-    assign o_ry_data = (i_rw == i_ry) ? i_rw_data : GPR_data[i_ry];
+    assign o_rx_data = (i_rw_en && i_rw == i_rx) ? i_rw_data : GPR_data[i_rx];
+    assign o_ry_data = (i_rw_en && i_rw == i_ry) ? i_rw_data : GPR_data[i_ry];
     
 endmodule

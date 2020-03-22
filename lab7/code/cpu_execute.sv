@@ -43,16 +43,17 @@ module cpu_execute (
     assign A = (i_forward_ctrl[1]) ? i_forward_data : i_A;
     assign B = (i_forward_ctrl[0]) ? i_forward_data : i_B;
 
-    logic sel_alu, sel_G;
+    logic sel_alu;
     logic [15:0] result;
-    logic N_in, Z_in;
-    assign result = sel_alu ? (A - B) : (A + B);
-    cpu_reg_n #(1) reg_N (clk, reset, N_in, result[15], o_N);
-    cpu_reg_n #(1) reg_Z (clk, reset, Z_in, result == 16'b0, o_Z);
-    assign sel_G = (instruction == i_add_) || (instruction == i_sub_) || (instruction == i_cmp_);
-    assign {Z_in, N_in} = {sel_G, sel_G};
+    logic flag_en;
     assign sel_alu = (instruction == i_sub_) || (instruction == i_cmp_);
-    assign o_G = sel_G ? result : A;
+    assign flag_en = (instruction == i_add_) || (instruction == i_sub_) || (instruction == i_cmp_);
+    
+    cpu_reg_n #(1) reg_N (clk, reset, flag_en, result[15], o_N);
+    cpu_reg_n #(1) reg_Z (clk, reset, flag_en, result == 16'b0, o_Z);
+
+    assign result = sel_alu ? (A - B) : (A + B);
+    assign o_G = (instruction == i_mvhi) ? {B[7:0], A[7:0]} : result;
 
     // mem access
     assign o_mem_data = A;

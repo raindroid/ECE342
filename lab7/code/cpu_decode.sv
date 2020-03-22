@@ -10,8 +10,8 @@ module cpu_decode (
     // to and from registers
     input [15:0] i_rx_data,
     input [15:0] i_ry_data,
-    output logic [2:0] o_rx,
-    output logic [2:0] o_ry,
+    output logic [3:0] o_rx,
+    output logic [3:0] o_ry,
 
     // outputs
     output logic [15:0] o_pc,
@@ -25,15 +25,11 @@ module cpu_decode (
 
     wire [7:0] imm8;
     wire [10:0] imm11;
-    wire [15:0] s_ext_imm8, double_s_ext_imm11;
+    wire [15:0] s_ext_imm8, s_ext_imm11x2;
     assign imm8 = i_ir[15:8];
     assign imm11 = i_ir[15:5];
     assign s_ext_imm8 = { {8{imm8[7]}}, imm8[7:0]};
     assign s_ext_imm11x2 = 2 * { {5{imm11[10]}}, imm11[10:0]};
-    
-    // check the register value
-    assign o_rx = o_ir[7:5];
-    assign o_ry = o_ir[10:8];
 
     logic [4:0] instruction;
     assign instruction = i_ir[4:0];
@@ -65,15 +61,22 @@ module cpu_decode (
     always_comb begin
         o_A = '0;
         o_B = '0;
+        o_rx = o_ir[7:5];
+        o_ry = o_ir[10:8];
         case(instruction)
             mv: begin
-                o_A = i_ry_data;
+                o_rx = '1;
+                o_B = i_ry_data;
             end
             mvi: begin
                 o_A = s_ext_imm8;
+                o_rx = '1;
+                o_ry = '1;
             end
             mvhi: begin
-                o_A = {s_ext_imm8[7:0], i_rx_data[7:0]};
+                o_A = i_rx_data;
+                o_B = s_ext_imm8;
+                o_ry = '1;
             end
             add: begin
                 o_A = i_rx_data;
@@ -82,6 +85,7 @@ module cpu_decode (
             addi: begin
                 o_A = i_rx_data;
                 o_B = s_ext_imm8;
+                o_ry = '1;
             end
             sub: begin
                 o_A = i_rx_data;
@@ -90,6 +94,7 @@ module cpu_decode (
             subi: begin
                 o_A = i_rx_data;
                 o_B = s_ext_imm8;
+                o_ry = '1;
             end
             cmp: begin
                 o_A = i_rx_data;
@@ -98,8 +103,10 @@ module cpu_decode (
             cmpi: begin
                 o_A = i_rx_data;
                 o_B = s_ext_imm8;
+                o_ry = '1;
             end
             ld: begin
+                o_rx = '1;
                 o_B = i_ry_data;
             end
             st: begin
@@ -108,31 +115,43 @@ module cpu_decode (
             end
             jr: begin
                 o_A = i_rx_data;
+                o_ry = '1;
             end
             j: begin
                 o_A = i_pc;
                 o_B = s_ext_imm11x2;
+                o_rx = '1;
+                o_ry = '1;
             end
             jzr: begin
                 o_A = i_rx_data;
+                o_ry = '1;
             end
             jz: begin
                 o_A = i_pc;
                 o_B = s_ext_imm11x2;
+                o_rx = '1;
+                o_ry = '1;
             end
             jnr: begin
                 o_A = i_rx_data;
+                o_ry = '1;
             end
             jn: begin
                 o_A = i_pc;
-                o_B = s_ext_imm11x2;                
+                o_B = s_ext_imm11x2;  
+                o_rx = '1;
+                o_ry = '1;              
             end
             callr: begin
                 o_A = i_rx_data;
+                o_ry = '1;
             end
             call: begin
                 o_A = i_pc;
                 o_B = s_ext_imm11x2;
+                o_rx = '1;
+                o_ry = '1;
             end
         endcase
     end
