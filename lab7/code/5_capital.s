@@ -1,7 +1,7 @@
-// Turns a fixed string into uppercase
+// Turns a fixed string into uppercase  FIXME - IPC: 0.4 https://q.utoronto.ca/courses/133385/discussion_topics/584908
 // Expected result:
 // THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
-// Minimum IPC of 0.6
+// Minimum IPC of 0.6 
 
 	mvi r0, str		// r0 is the address of str
 

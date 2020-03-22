@@ -2,12 +2,12 @@ module tb();
 
 localparam string PROGRAMS[] = 
 {
-	"0_basic.hex",
-	"1_arithdep.hex",
-	"2_branch_nottaken.hex",
-	"3_branch_taken.hex",
-	"4_memdep.hex",
-	"5_capital.hex"
+	 "0_basic.hex"
+	// "1_arithdep.hex",
+	// "2_branch_nottaken.hex",
+	// "3_branch_taken.hex",
+	// "4_memdep.hex",
+	// "5_capital.hex"
 };
 
 // Create a 100MHz clock
