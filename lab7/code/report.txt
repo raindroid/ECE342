@@ -1,0 +1,7 @@
+Lab 7 report:
+
+Names: Yucan WU, Qihan Liu
+
+The approach that we used to pipeline is to divide the whole execution of each instruction into four states, which are: fetch stage, decode stage, execution stage, and write-back stage. After each stage finishes its job, the result of the current stage is passed into the next stage and therefore forms a pipeline. In the fetch stage, the PC is set to the memory. Then, the type of instruction is figured out and the registers are read in the decode stage. In the execution stage, we use the ALU to compute the result of the instruction. In the end, we access the memory and write the result back into a register in the write-back stage if needed (e.g. load instruction). 
+
+To deal with data dependencies, we use forwarding, which is implemented by using the value produced from the previous instructions for reading instructions in the execution stage. In the case of a branch, after figuring out the instruction is a branch instruction, the PC will be set to the correct instruction and will be passed to the current fetch stage. The instruction queuing in the decode stage will be flushed, causing the pipeline to idle for one cycle.
