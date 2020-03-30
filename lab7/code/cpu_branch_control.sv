@@ -5,6 +5,7 @@ module cpu_branch_ctrl (
     input reset,
 
     input [15:0] i_s2_ir,
+    input [15:0] i_s2_pc,
     input [15:0] i_s2_A,
     input [15:0] i_s2_B,
 
@@ -54,7 +55,7 @@ module cpu_branch_ctrl (
     always_comb begin
         br_en = 0;
         case(instruction3)
-            i_jr_: br_en = 1;
+            i_jr_: br_en = ~imm_mode3;
             i_jzr_: br_en = i_s3_Z;
             i_jnr_: br_en = i_s3_N;
             i_callr_: br_en = 1;
@@ -65,9 +66,9 @@ module cpu_branch_ctrl (
     // REVIEW Faster branch from stage 2
     logic [3:0] instruction2;
     assign instruction2 = i_s2_ir[3:0];
-    assign imm_mode2 = i_s3_ir[4];
-    // assign br_en_fast = imm_mode2 && (instruction2 == i_jr_);
-    assign br_en_fast = 0;
-    assign br_pc_fast = i_s2_A + i_s2_B;
+    assign imm_mode2 = i_s2_ir[4];
+    assign br_en_fast = imm_mode2 && (instruction2 == i_jr_);
+    // assign br_en_fast = 0;
+    assign br_pc_fast = i_s2_A;
     
 endmodule

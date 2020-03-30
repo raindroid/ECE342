@@ -115,41 +115,45 @@ module cpu_decode (
             end
             jr: begin
                 o_A = i_rx_data;
+                o_B = '0;
                 o_ry = '1;
             end
             j: begin
                 o_A = i_pc + s_ext_imm11x2;
-                o_B = 0;
+                o_B = '0;
                 o_rx = '1;
                 o_ry = '1;
             end
             jzr: begin
                 o_A = i_rx_data;
+                o_B = '0;
                 o_ry = '1;
             end
             jz: begin
                 o_A = i_pc + s_ext_imm11x2;
-                o_B = 0;
+                o_B = '0;
                 o_rx = '1;
                 o_ry = '1;
             end
             jnr: begin
                 o_A = i_rx_data;
+                o_B = '0;
                 o_ry = '1;
             end
             jn: begin
                 o_A = i_pc + s_ext_imm11x2;
-                o_B = 0;  
+                o_B = '0;  
                 o_rx = '1;
                 o_ry = '1;              
             end
             callr: begin
                 o_A = i_rx_data;
+                o_B = '0;
                 o_ry = '1;
             end
             call: begin
                 o_A = i_pc + s_ext_imm11x2;
-                o_B = 0;
+                o_B = '0;
                 o_rx = '1;
                 o_ry = '1;
             end

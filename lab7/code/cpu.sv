@@ -171,8 +171,11 @@ module cpu
 		.reset(reset),
 
 		.i_s2_ir(i_s2_ir),
+		.i_s2_pc(i_s2_pc),
+		// .i_s2_A('0),
+		// .i_s2_B('0),
 		.i_s2_A(o_s2_A),
-		.i_s2_B(o_s2_A),
+		.i_s2_B(o_s2_B),
 
 		.i_s3_ir(i_s3_ir),
 		.i_s3_N(o_s3_N),
