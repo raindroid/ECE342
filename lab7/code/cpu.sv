@@ -153,8 +153,11 @@ module cpu
 	cpu_forward_ctrl forward_control (
 		.clk(clk),
 		.reset(reset),
+		.s2_rx(s2_rx),
+		.s2_ry(s2_ry),
 		.s3_rx(s3_rx),
 		.s3_ry(s3_ry),
+		.s3_valid(valid_3),
 		.rw(rw),
 		.rw_data(rw_data),
 		.rw_en(rw_en),
@@ -167,10 +170,11 @@ module cpu
 		.clk(clk),
 		.reset(reset),
 
-		// .i_s2_ir(o_s2_ir),
-		// .i_s2_A(o_s2_A),
+		.i_s2_ir(i_s2_ir),
+		.i_s2_A(o_s2_A),
+		.i_s2_B(o_s2_A),
 
-		.i_s3_ir(o_s3_ir),
+		.i_s3_ir(i_s3_ir),
 		.i_s3_N(o_s3_N),
 		.i_s3_Z(o_s3_Z),
 		.i_s3_G('0),

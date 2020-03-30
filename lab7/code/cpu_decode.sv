@@ -118,8 +118,8 @@ module cpu_decode (
                 o_ry = '1;
             end
             j: begin
-                o_A = i_pc;
-                o_B = s_ext_imm11x2;
+                o_A = i_pc + s_ext_imm11x2;
+                o_B = 0;
                 o_rx = '1;
                 o_ry = '1;
             end
@@ -128,8 +128,8 @@ module cpu_decode (
                 o_ry = '1;
             end
             jz: begin
-                o_A = i_pc;
-                o_B = s_ext_imm11x2;
+                o_A = i_pc + s_ext_imm11x2;
+                o_B = 0;
                 o_rx = '1;
                 o_ry = '1;
             end
@@ -138,8 +138,8 @@ module cpu_decode (
                 o_ry = '1;
             end
             jn: begin
-                o_A = i_pc;
-                o_B = s_ext_imm11x2;  
+                o_A = i_pc + s_ext_imm11x2;
+                o_B = 0;  
                 o_rx = '1;
                 o_ry = '1;              
             end
@@ -148,8 +148,8 @@ module cpu_decode (
                 o_ry = '1;
             end
             call: begin
-                o_A = i_pc;
-                o_B = s_ext_imm11x2;
+                o_A = i_pc + s_ext_imm11x2;
+                o_B = 0;
                 o_rx = '1;
                 o_ry = '1;
             end
