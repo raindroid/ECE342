@@ -88,12 +88,12 @@ module cpu
 
 	// S3 and connection with S2
 	logic [15:0] i_s3_pc, i_s3_ir, i_s3_A, i_s3_B;
-	logic valid_3;
+	logic valid_3, invalid_s2;
 	logic [3:0] s3_rx, s3_ry;
 	cpu_stage_connection #(5) connection_s2_s3(
 		.clk(clk),
 		.reset(reset),
-		.i_valid(valid_2 & ~br_en),
+		.i_valid(valid_2 & ~invalid_s2),
 		.o_valid(valid_3),
 		.i_data({o_s2_pc, o_s2_ir, o_s2_A, o_s2_B, s2_rx, s2_ry}),
 		.o_data({i_s3_pc, i_s3_ir, i_s3_A, i_s3_B, s3_rx, s3_ry})
@@ -166,10 +166,22 @@ module cpu
 	cpu_branch_ctrl branch_control (
 		.clk(clk),
 		.reset(reset),
-		.i_ir(o_s3_ir),
-		.i_N(o_s3_N),
-		.i_Z(o_s3_Z),
-		.i_G(o_s3_G),
+
+		// .i_s2_ir(o_s2_ir),
+		// .i_s2_A(o_s2_A),
+
+		.i_s3_ir(o_s3_ir),
+		.i_s3_N(o_s3_N),
+		.i_s3_Z(o_s3_Z),
+		.i_s3_G('0),
+		// .i_s3_G(o_s3_G),
+		.i_s3_A(i_s3_A),
+		.i_s3_B(i_s3_B),
+
+		.i_forward_data(i_forward_data),
+		.i_forward_ctrl(i_forward_ctrl),
+
+		.o_invalid_s2(invalid_s2),
 		.o_br_en(br_en),
 		.o_br_pc(br_pc)
 	);
