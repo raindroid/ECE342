@@ -20,6 +20,7 @@ module cpu
 	logic [2:0] rw;
 	logic [15:0] rx_data, ry_data, rw_data;
 	logic rw_en;
+	logic [15:0] r7_data;
 	// registers
 	cpu_register_file registers (
 		.clk(clk),
@@ -30,6 +31,7 @@ module cpu
 		.i_rw_data(rw_data),
 		.i_rw_en(rw_en),
 
+		.o_r7_data(r7_data),
 		.o_rx_data(rx_data),
 		.o_ry_data(ry_data),
 		.GPR_data(o_tb_regs)
@@ -100,6 +102,7 @@ module cpu
 	);
 	logic [15:0] o_s3_pc, o_s3_ir, o_s3_G, i_forward_data;
 	logic o_s3_N, o_s3_Z;
+	logic o_s3_preN, o_s3_preZ;
 	logic [1:0] i_forward_ctrl;
 	cpu_execute S3(
 		.clk(clk),
@@ -116,6 +119,8 @@ module cpu
 		.o_pc(o_s3_pc),
 		.o_ir(o_s3_ir),
 		.o_G(o_s3_G),
+		.o_preN(o_s3_preN),
+		.o_preZ(o_s3_preZ),
 		.o_N(o_s3_N),
 		.o_Z(o_s3_Z),
 		.o_mem_data(o_ldst_wrdata),
@@ -170,12 +175,16 @@ module cpu
 		.clk(clk),
 		.reset(reset),
 
+		.r7_data(r7_data),
 		.i_s2_ir(i_s2_ir),
 		.i_s2_pc(i_s2_pc),
 		// .i_s2_A('0),
 		// .i_s2_B('0),
 		.i_s2_A(o_s2_A),
 		.i_s2_B(o_s2_B),
+		.i_s2_N(o_s3_preN),
+		.i_s2_Z(o_s3_preZ),
+		// .i_s2_rx(s2_rx),
 
 		.i_s3_ir(i_s3_ir),
 		.i_s3_N(o_s3_N),

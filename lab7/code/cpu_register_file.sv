@@ -10,6 +10,7 @@ module cpu_register_file (
     input [15:0] i_rw_data,
     input i_rw_en,
 
+    output logic [15:0] o_r7_data,
     output logic [15:0] o_rx_data,
     output logic [15:0] o_ry_data,
     output logic [7:0][15:0] GPR_data
@@ -40,5 +41,6 @@ module cpu_register_file (
     
     assign o_rx_data = (i_rw_en && i_rw == i_rx) ? i_rw_data : GPR_data[i_rx];
     assign o_ry_data = (i_rw_en && i_rw == i_ry) ? i_rw_data : GPR_data[i_ry];
+    assign o_r7_data = (i_rw_en && i_rw == 3'h7) ? i_rw_data : GPR_data[7];
     
 endmodule

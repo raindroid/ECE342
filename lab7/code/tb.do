@@ -11,3 +11,4 @@ add wave -group cpu -hex /tb/dut/*
 
 
 run 10000ps
+#run 1300ps

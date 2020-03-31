@@ -13,6 +13,8 @@ module cpu_execute (
     output logic [15:0] o_pc,
     output logic [15:0] o_ir,
     output logic [15:0] o_G,
+    output logic o_preN,
+    output logic o_preZ,
     output logic o_N,
     output logic o_Z,
     output logic [15:0] o_mem_data,
@@ -51,6 +53,8 @@ module cpu_execute (
     
     cpu_reg_n #(1) reg_N (clk, reset, flag_en, result[15], o_N);
     cpu_reg_n #(1) reg_Z (clk, reset, flag_en, result == 16'b0, o_Z);
+    assign o_preN = result[15];
+    assign o_preZ = result == 16'b0;
 
     assign result = sel_alu ? (A - B) : (A + B);
     assign o_G = (instruction == i_mvhi) ? {B[7:0], A[7:0]} : result;

@@ -29,7 +29,7 @@ module cpu_decode (
     assign imm8 = i_ir[15:8];
     assign imm11 = i_ir[15:5];
     assign s_ext_imm8 = { {8{imm8[7]}}, imm8[7:0]};
-    assign s_ext_imm11x2 = 2 * { {5{imm11[10]}}, imm11[10:0]};
+    assign s_ext_imm11x2 = { {4{imm11[10]}}, imm11[10:0], 1'b0};
 
     logic [4:0] instruction;
     assign instruction = i_ir[4:0];
