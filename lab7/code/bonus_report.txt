@@ -1,7 +1,7 @@
 Lab7 Bonus Part Report
 
-Yucan WU 1003
-Qihan Liu 1003969672
+Yucan WU 
+Qihan Liu
 
 
 We improved the performance of our design by adding a faster branch in the branch control logic. The specific type of instruction is figured out in the decode stage (stage 2) in our CPU design. Therefore, the CPU would know that the next instruction will be a branch (jump/call) in stage 2. If the operand is an imm11, CPU is able to reset the PC in the fetch stage (stage 1) in the same cycle as it decodes the instruction. In this way, no instruction will be flushed and there will be no idling for the pipeline. However, in many of the cases, the operand is a register (r7) instead of an imm11; if r7 is being written right before a branch instruction, the PC of the branch will not be correct until the execute stage (stage 3). We encountered this problem by checking the previous instruction in the execution stage to see if there is a modification for the value of r7. Another problem would be there are multiple branch instructions in a row, which means only one of the branch instructions will be successfully executed. In this case, we priorities the branch control in execute stage (stage 3), and only continue the faster branch control in the decode stage (stage 2) if the branch control in stage 3 fails. By implementing the above changes, we are able to get an IPC of 1.0 and Fmax of 118.39MHz.
