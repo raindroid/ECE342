@@ -4,6 +4,7 @@
 
 ## Target
 小目标：两个人稳过A
+- [x] 两个稳稳的A+
 
 ## Enviroment
 1. 编译： Quartus Prime Lite Edition 18.1 (windows)
